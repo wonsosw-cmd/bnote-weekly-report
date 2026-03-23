@@ -9,7 +9,7 @@
 <style>
 /* ========== RESET & GLOBAL ========== */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:15px; }
+html { font-size:16px; }
 body {
   font-family:'Noto Sans KR', sans-serif;
   background:#F0F2F5;
@@ -28,175 +28,117 @@ body {
   display:flex; align-items:center; justify-content:space-between;
   padding-bottom:16px;
 }
-.logo {
-  font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:1px;
-}
+.logo { font-size:1.6rem; font-weight:900; color:#fff; letter-spacing:1px; }
 .logo b { color:#4A90D9; }
-.header-date {
-  color:rgba(255,255,255,.6); font-size:.85rem;
-}
+.header-date { color:rgba(255,255,255,.7); font-size:1rem; font-weight:600; }
 
 /* ========== CONTENT ========== */
-.content { max-width:1400px; margin:0 auto; padding:24px 24px 48px; }
+.content { max-width:1400px; margin:0 auto; padding:28px 28px 48px; }
 
 /* ========== SECTION ========== */
 .section {
-  background:#fff; border-radius:12px; margin-bottom:20px;
-  box-shadow:0 1px 4px rgba(0,0,0,.06);
-  overflow:hidden;
+  background:#fff; border-radius:12px; margin-bottom:24px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08); overflow:hidden;
 }
 .section-header {
-  padding:16px 24px; font-size:1.1rem; font-weight:700; color:#0F1B3D;
+  padding:16px 24px; font-size:1.15rem; font-weight:700; color:#0F1B3D;
   border-bottom:2px solid #E8EBF0;
-  display:flex; align-items:center; gap:8px; justify-content:space-between;
+  display:flex; align-items:center; gap:8px; justify-content:space-between; flex-wrap:wrap;
 }
-.section-header-left {
-  display:flex; align-items:center; gap:8px;
-}
+.section-header-left { display:flex; align-items:center; gap:8px; }
 .section-header .badge {
-  display:inline-block; background:#4A90D9; color:#fff; font-size:.7rem; font-weight:600;
-  padding:2px 8px; border-radius:10px; letter-spacing:.5px;
+  display:inline-block; background:#4A90D9; color:#fff; font-size:.75rem; font-weight:600;
+  padding:3px 10px; border-radius:10px; letter-spacing:.5px;
 }
 .section-body { padding:20px 24px; overflow-x:auto; }
 
-/* ========== SUMMARY TABLE (Section 1) ========== */
+/* ========== SUMMARY TABLE (S1) ========== */
 .summary-wrap { margin-bottom:24px; }
 .summary-wrap:last-child { margin-bottom:0; }
-.summary-label {
-  font-size:.95rem; font-weight:600; color:#1B2E5C; margin-bottom:8px;
-  padding-left:4px;
-}
-
-table.summary {
-  width:100%; border-collapse:collapse;
-}
+.summary-label { font-size:1rem; font-weight:700; color:#1B2E5C; margin-bottom:10px; padding-left:4px; }
+table.summary { width:100%; border-collapse:collapse; }
 table.summary th, table.summary td {
-  border:1px solid #D8DCE3; padding:11px 14px; text-align:center;
-  font-size:.9rem; vertical-align:middle;
+  border:1px solid #D8DCE3; padding:12px 16px; text-align:center; font-size:.95rem; vertical-align:middle;
 }
-table.summary th {
-  background:#F5F7FA; font-weight:600; color:#1B2E5C;
-}
-.summary .big-num {
-  font-size:1.45rem; font-weight:800; color:#0F1B3D;
-}
-.summary .highlight-blue {
-  color:#4A90D9; font-weight:700; font-size:1.2rem;
-}
-.summary .sub-cell {
-  text-align:left; padding:14px 16px; line-height:1;
-}
+table.summary th { background:#F5F7FA; font-weight:600; color:#1B2E5C; }
+.summary .big-num { font-size:1.55rem; font-weight:800; color:#0F1B3D; }
+.summary .sub-cell { text-align:left; padding:14px 16px; line-height:1; }
 .summary .sub-cell .row-item {
-  display:flex; justify-content:space-between; align-items:center;
-  font-size:.92rem; padding:6px 0;
+  display:flex; justify-content:space-between; align-items:center; font-size:.95rem; padding:6px 0;
 }
-.summary .sub-cell .row-item + .row-item {
-  border-top:1px dashed #E0E3E8;
-}
-.summary .sub-cell .row-item .label {
-  color:#666; font-size:.85rem; min-width:72px;
-}
-.summary .sub-cell .row-item .value {
-  font-weight:700; color:#0F1B3D; font-size:1rem; text-align:right;
-}
-.summary .sub-cell .row-item.pct .value {
-  font-size:.95rem; font-weight:700;
-}
+.summary .sub-cell .row-item + .row-item { border-top:1px dashed #E0E3E8; }
+.summary .sub-cell .row-item .label { color:#666; font-size:.9rem; min-width:72px; }
+.summary .sub-cell .row-item .value { font-weight:700; color:#0F1B3D; font-size:1.05rem; text-align:right; }
+.summary .sub-cell .row-item.pct .value { font-size:1rem; font-weight:700; }
 .summary .sub-cell .row-item.pct .value.pct-up { color:#E53935; }
 .summary .sub-cell .row-item.pct .value.pct-down { color:#1E88E5; }
 
+/* ========== S1 MOBILE CARDS ========== */
+.s1-mobile { display:none; }
+.mk-hero { background:linear-gradient(135deg,#0F1B3D 0%,#1B2E5C 100%); border-radius:8px; padding:16px; text-align:center; margin-bottom:8px; }
+.mk-hero-label { color:rgba(255,255,255,.7); font-size:.92rem; font-weight:500; margin-bottom:6px; }
+.mk-hero-label span { font-size:.78rem; font-weight:400; }
+.mk-hero-value { color:#fff; font-size:1.6rem; font-weight:800; letter-spacing:.5px; }
+.mk-sub-row { display:flex; gap:6px; margin-bottom:10px; }
+.mk-sub-item { flex:1; background:#F5F7FA; border-radius:6px; padding:10px; text-align:center; border:1px solid #E8EBF0; }
+.mk-sub-label { font-size:.78rem; color:#666; margin-bottom:4px; }
+.mk-sub-value { font-size:1.05rem; font-weight:700; color:#0F1B3D; }
+.mk-progress .mk-sub-value { font-size:1.2rem; }
+.mc-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.mc-card { border:1px solid #D8DCE3; border-radius:8px; padding:12px; background:#fff; }
+.mc-title { font-size:.85rem; font-weight:600; color:#1B2E5C; margin-bottom:6px; border-bottom:1px solid #E8EBF0; padding-bottom:4px; }
+.mc-row { display:flex; justify-content:space-between; align-items:center; font-size:.88rem; padding:3px 0; }
+.mc-label { color:#666; font-size:.78rem; }
+.mc-val { font-weight:700; color:#0F1B3D; font-size:.95rem; }
+
 /* ========== DATA TABLE ========== */
-table.data-tbl {
-  width:100%; border-collapse:collapse; white-space:nowrap;
-}
-table.data-tbl th, table.data-tbl td {
-  border:1px solid #D8DCE3; padding:9px 11px; font-size:.88rem;
-  vertical-align:middle;
-}
-table.data-tbl th {
-  background:#F5F7FA; font-weight:600; color:#1B2E5C; text-align:center;
-}
+table.data-tbl { width:100%; border-collapse:collapse; white-space:nowrap; }
+table.data-tbl th, table.data-tbl td { border:1px solid #D8DCE3; padding:11px 14px; font-size:.92rem; vertical-align:middle; }
+table.data-tbl th { background:#F5F7FA; font-weight:600; color:#1B2E5C; text-align:center; }
 table.data-tbl td { text-align:right; }
 table.data-tbl td.left { text-align:left; }
 table.data-tbl td.center { text-align:center; }
-table.data-tbl .row-brand {
-  background:#FAFBFC; font-weight:600; color:#0F1B3D;
-}
-table.data-tbl .row-sub { background:#fff; }
-table.data-tbl .row-total {
-  background:#EDF1F7; font-weight:700;
-}
-.pct-up { color:#E53935; font-weight:600; }
-.pct-down { color:#1E88E5; font-weight:600; }
-.row-depth0 td:first-child { font-weight:700; color:#0F1B3D; }
-.row-depth1 td.left { padding-left:20px; font-weight:600; }
-.row-depth2 td.left { padding-left:36px; font-weight:500; color:#444; }
-.row-depth3 td.left { padding-left:52px; color:#555; }
-
-/* ========== SUBTOTAL ROW COLORS ========== */
+table.data-tbl .row-total { background:#EDF1F7; font-weight:700; }
+.pct-up { color:#E53935; font-weight:700; font-size:1rem; }
+.pct-down { color:#1E88E5; font-weight:700; font-size:1rem; }
+.row-total td { font-weight:800; }
 tr.subtotal-depth0 { background:#0F1B3D !important; }
 tr.subtotal-depth0 td { color:#fff !important; font-weight:700; }
-tr.subtotal-depth0 td.pct-up { color:#FF8A80 !important; }
-tr.subtotal-depth0 td.pct-down { color:#82B1FF !important; }
 
 /* ========== CHART ========== */
-.chart-container {
-  position:relative; width:100%; height:400px;
-}
+.chart-container { position:relative; width:100%; height:720px; }
+canvas { height:680px !important; }
 .s3-body { display:flex; position:relative; }
+.s3-y-axis { display:none; }
 .s3-scroll { flex:1; min-width:0; }
 .chart-day-btn {
-  font-family:'Noto Sans KR', sans-serif;
-  font-size:.82rem; font-weight:500; padding:6px 16px;
-  border:1px solid #CDD1D9; border-radius:6px;
-  background:#fff; color:#666; cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif; font-size:.85rem; font-weight:500; padding:6px 16px;
+  border:1px solid #CDD1D9; border-radius:6px; background:#fff; color:#666; cursor:pointer;
   transition:all .2s; margin-right:8px;
 }
 .chart-day-btn:hover { border-color:#4A90D9; color:#4A90D9; }
-.chart-day-btn.active {
-  background:#1B2E5C; color:#fff; border-color:#1B2E5C; font-weight:700;
-}
+.chart-day-btn.active { background:#1B2E5C; color:#fff; border-color:#1B2E5C; font-weight:700; }
 
-/* ========== LOADING SPINNER ========== */
-.loading-overlay {
-  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.3); z-index:500; align-items:center; justify-content:center;
-  flex-direction:column;
-}
+/* ========== LOADING ========== */
+.loading-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); z-index:500; align-items:center; justify-content:center; flex-direction:column; }
 .loading-overlay.show { display:flex; }
-.spinner {
-  border:4px solid #f3f3f3;
-  border-top:4px solid #4A90D9;
-  border-radius:50%;
-  width:40px; height:40px;
-  animation:spin 1s linear infinite;
-  margin-bottom:16px;
-}
-@keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+.spinner { border:4px solid #f3f3f3; border-top:4px solid #4A90D9; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin-bottom:16px; }
+@keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
 .loading-text { color:#fff; font-size:1rem; font-weight:500; }
-
-/* ========== ERROR MESSAGE ========== */
-.error-box {
-  background:#FFF3CD; border:1px solid #FFB81C; border-radius:8px;
-  padding:16px; color:#333; margin-bottom:20px; display:none;
-}
+.error-box { background:#FFF3CD; border:1px solid #FFB81C; border-radius:8px; padding:16px; color:#333; margin-bottom:20px; display:none; }
 .error-box.show { display:block; }
 .error-box .error-title { font-weight:700; margin-bottom:8px; }
-.error-box .error-msg { font-size:.9rem; margin-bottom:12px; }
-.error-box button {
-  background:#FFB81C; color:#000; border:none; padding:8px 16px;
-  border-radius:4px; cursor:pointer; font-weight:600;
-}
-.error-box button:hover { background:#FF9800; }
+.error-box button { background:#FFB81C; color:#000; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-weight:600; }
 
-/* ========== RESPONSIVE ========== */
-@media(max-width:1024px) {
-  .content { max-width:100%; padding:20px 16px 40px; }
-  .section-body { padding:16px; }
-  table.summary th, table.summary td { padding:8px 10px; font-size:.8rem; }
-  .summary .big-num { font-size:1.15rem; }
-}
+/* ========== PASSWORD ========== */
+#pw-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+#pw-overlay h2 { color:#fff; font-size:22px; margin-bottom:20px; font-weight:600; }
+#pw-overlay input { padding:12px 20px; font-size:16px; border:2px solid #475569; border-radius:8px; background:#1e293b; color:#fff; width:260px; text-align:center; outline:none; }
+#pw-overlay input:focus { border-color:#3b82f6; }
+#pw-overlay .pw-btn { margin-top:14px; padding:10px 36px; font-size:15px; background:#3b82f6; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+#pw-overlay .pw-msg { color:#ef4444; margin-top:10px; font-size:13px; min-height:20px; }
 
+/* ========== MOBILE (<=768px) ========== */
 @media(max-width:768px) {
   html { font-size:15px; }
   .header { padding:12px 12px 0; }
@@ -205,143 +147,78 @@ tr.subtotal-depth0 td.pct-down { color:#82B1FF !important; }
   .header-date { font-size:.85rem; }
   .content { padding:12px 8px 32px; }
   .section { border-radius:8px; margin-bottom:12px; }
-  .section-header { padding:12px 14px; font-size:1rem; }
+  .section-header { padding:12px 14px; font-size:1rem; flex-wrap:wrap; gap:6px; }
+  .section-header .badge { font-size:.72rem; padding:3px 8px; }
   .section-body { padding:12px 10px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+  .s1-desktop { display:none; }
+  .s1-mobile { display:block; }
+  .summary-label { font-size:.95rem; margin-bottom:8px; }
+
+  table.data-tbl { min-width:750px; border-collapse:separate; border-spacing:0; }
+  table.data-tbl th, table.data-tbl td { padding:8px 10px; font-size:.95rem; border:none; border-right:1px solid #D8DCE3; border-bottom:1px solid #D8DCE3; }
+  table.data-tbl thead tr:first-child th { border-top:1px solid #D8DCE3; }
+  table.data-tbl th:first-child, table.data-tbl td:first-child { border-left:1px solid #D8DCE3; }
+
+  .scol { position:sticky; z-index:2; }
+  .scol-1 { left:0; min-width:60px; }
+  th.scol { z-index:3; background:#F5F7FA; }
+  td.scol { background:#fff; }
+  tr.row-total td.scol { background:#EDF1F7; }
+  tr.subtotal-depth0 td.scol { background:#0F1B3D !important; }
+  .scol { border-right:1px solid #C0C5CE !important; }
+  .scol-1::after { content:''; position:absolute; top:0; right:-6px; bottom:0; width:6px; background:linear-gradient(to right,rgba(0,0,0,.1),transparent); pointer-events:none; }
+
+  .s3-body.section-body { display:flex !important; flex-direction:row !important; overflow:hidden !important; padding:10px 0; }
+  .s3-y-axis { display:flex !important; flex-direction:column; justify-content:space-between; width:50px; flex-shrink:0; z-index:3; padding:32px 6px 40px 8px; text-align:right; font-size:.82rem; color:#555; font-weight:500; background:#fff; border-right:2px solid #D8DCE3; box-shadow:4px 0 8px rgba(0,0,0,.06); }
+  .s3-y-axis .y-tick { line-height:1.2; white-space:nowrap; }
+  .s3-scroll { flex:1; min-width:0; overflow-x:auto !important; -webkit-overflow-scrolling:touch; }
+  .s3-scroll .chart-container { min-width:1600px; height:420px; }
+  .chart-day-btn { font-size:.88rem; padding:6px 14px; }
+}
+@media(max-width:420px) {
+  .header { padding:8px 8px 0; }
+  .logo { font-size:1.1rem; }
+  .section-header { padding:10px; font-size:.95rem; }
+  .section-body { padding:8px 6px; }
+  .mc-grid { gap:6px; }
+  .mc-card { padding:9px; }
+  .mc-title { font-size:.82rem; }
+  .mc-row { font-size:.82rem; }
+  .mk-hero-value { font-size:1.4rem; }
+  .mk-sub-value { font-size:1rem; }
   table.data-tbl { min-width:650px; }
   table.data-tbl th, table.data-tbl td { font-size:.88rem; padding:7px 8px; }
-  .chart-container { height:380px; }
-}
-
-/* ========== EASTEND-MATCHED SIZE OVERRIDES ========== */
-html{font-size:16px !important}
-body{font-size:16px !important}
-.header{padding:24px 32px 0 !important}
-.header-date{font-size:1rem !important;font-weight:600 !important;color:rgba(255,255,255,.7) !important}
-.logo{font-size:1.6rem !important}
-.content{max-width:1400px;padding:28px 28px 48px !important}
-.section{margin-bottom:24px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
-.section-header{font-size:1.15rem !important;padding:16px 24px !important;font-weight:700 !important}
-.section-header .badge{font-size:.75rem !important;padding:3px 10px !important}
-.summary-label{font-size:1rem !important;font-weight:700 !important;margin-bottom:10px !important}
-table.summary th{font-size:.95rem !important;padding:12px 16px !important}
-table.summary td{font-size:.95rem !important;padding:12px 16px !important}
-.summary .big-num{font-size:1.55rem !important;font-weight:800 !important}
-.summary .sub-cell .row-item .label{font-size:.9rem !important}
-.summary .sub-cell .row-item .value{font-size:1.05rem !important;font-weight:700 !important}
-.summary .sub-cell .row-item.pct .value{font-size:1rem !important;font-weight:700 !important}
-.pct-up{color:#E53935 !important;font-size:1rem !important;font-weight:700 !important}
-.pct-down{color:#1E88E5 !important;font-size:1rem !important;font-weight:700 !important}
-table.data-tbl th{font-size:.92rem !important;padding:11px 14px !important}
-table.data-tbl td{font-size:.92rem !important;padding:11px 14px !important}
-.row-total td{font-weight:800 !important}
-.chart-container{height:720px !important}
-canvas{height:680px !important}
-
-/* ========== PASSWORD OVERLAY ========== */
-#pw-overlay {
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:#000; z-index:9999;
-  display:flex; align-items:center; justify-content:center; flex-direction:column;
-}
-#pw-overlay h2 {
-  color:#fff; font-size:22px; margin-bottom:20px; font-weight:600;
-}
-#pw-overlay input {
-  padding:12px 20px; font-size:16px;
-  border:2px solid #475569; border-radius:8px;
-  background:#1e293b; color:#fff; width:260px; text-align:center;
-  outline:none;
-}
-#pw-overlay input:focus { border-color:#3b82f6; }
-#pw-overlay .pw-btn {
-  margin-top:14px; padding:10px 36px; font-size:15px;
-  background:#3b82f6; color:#fff; border:none;
-  border-radius:8px; cursor:pointer; font-weight:600;
-}
-#pw-overlay .pw-msg {
-  color:#ef4444; margin-top:10px; font-size:13px; min-height:20px;
+  .s3-scroll .chart-container { min-width:1400px; height:380px; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-top">
     <div class="logo"><b>BNOTE</b> 주간 매출 현황</div>
-    <div class="header-date" id="headerDate">2026-03-23</div>
+    <div class="header-date" id="headerDate">-</div>
   </div>
 </div>
 
-<!-- CONTENT -->
 <div class="content">
-  <!-- ERROR BOX -->
   <div class="error-box" id="errorBox">
     <div class="error-title">데이터 로드 실패</div>
-    <div class="error-msg" id="errorMsg">데이터를 불러올 수 없습니다.</div>
+    <div class="error-msg" id="errorMsg"></div>
     <button onclick="retryLoadData()">다시 시도</button>
   </div>
-
-  <!-- SECTION 1: 당월 현황 -->
-  <div class="section" id="s1-section">
-    <div class="section-header">
-      <div class="section-header-left">
-        <span>1. 월간 매출 현황</span>
-        <span class="badge">당월</span>
-      </div>
-    </div>
-    <div class="section-body" id="s1-body">로딩 중...</div>
-  </div>
-
-  <!-- SECTION 2: 일일 현황 -->
-  <div class="section" id="s2-section">
-    <div class="section-header">
-      <div class="section-header-left">
-        <span>2. 일별 거래액 현황 (최근 7일)</span>
-        <span class="badge">DAILY</span>
-      </div>
-    </div>
-    <div class="section-body" id="s2-body">로딩 중...</div>
-  </div>
-
-  <!-- SECTION 3: 차트 -->
-  <div class="section" id="s3-section">
-    <div class="section-header">
-      <div class="section-header-left">
-        <span>3. '24~'26 주차별 거래액 추이</span>
-        <span class="badge">WEEKLY TREND</span>
-      </div>
-      <div>
-        <button class="chart-day-btn active" onclick="setChartDay('tue')">화요일 기준</button>
-        <button class="chart-day-btn" onclick="setChartDay('fri')">금요일 기준</button>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="chart-container">
-        <canvas id="s3Chart"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECTION 4: 채널별 현황 -->
-  <div class="section" id="s4-section">
-    <div class="section-header">
-      <div class="section-header-left">
-        <span>4. 채널별 매출 현황</span>
-        <span class="badge">상세</span>
-      </div>
-    </div>
-    <div class="section-body" id="s4-body">로딩 중...</div>
-  </div>
+  <div id="s1-section"></div>
+  <div id="s2-section"></div>
+  <div id="s3-section"></div>
+  <div id="s4-section"></div>
 </div>
 
-<!-- LOADING OVERLAY -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text">GAS 서버 데이터 로딩 중... (최대 30초)</div>
 </div>
 
-<!-- PASSWORD OVERLAY -->
 <div id="pw-overlay">
   <h2>BNOTE Dashboard</h2>
   <input type="password" id="pw-input" placeholder="비밀번호 입력" autofocus>
@@ -350,690 +227,309 @@ canvas{height:680px !important}
 </div>
 
 <script>
-// ============================================================
-// GLOBAL CONFIG & DATA
-// ============================================================
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwmWK2sGAv-kQoQEzcEoaw9q7Fhf3FQBv0Ug9ryjkXnxRzDgbuHWh-LR1wfzuhydK8odA/exec';
-const DEFAULT_CONVERSION_RATE = 0.8636364;
-const FETCH_TIMEOUT = 30000;
+const GAS_URL='https://script.google.com/macros/s/AKfycbwmWK2sGAv-kQoQEzcEoaw9q7Fhf3FQBv0Ug9ryjkXnxRzDgbuHWh-LR1wfzuhydK8odA/exec';
+const DEFAULT_CONVERSION_RATE=0.8636364;
+const FETCH_TIMEOUT=30000;
+let allData=null, refDate=null, currentMonth=3, currentYear=2026, chartDay='tue', s3ChartInstance=null;
 
-let allData = null;
-let refDate = null;
-let currentMonth = 3;
-let currentYear = 2026;
-let chartDay = 'tue';
-let s3ChartInstance = null;
-
-// ============================================================
-// PASSWORD SYSTEM
-// ============================================================
-function calculateRefDate(now) {
-  const day = now.getDay();
-  const d = new Date(now);
-  if (day >= 2 && day <= 4) {
-    d.setDate(d.getDate() - (day - 1));
-  } else {
-    const diff = (day >= 5) ? (day - 4) : (day + 3);
-    d.setDate(d.getDate() - diff);
-  }
-  d.setHours(0, 0, 0, 0);
-  return d;
+/* ===== PASSWORD ===== */
+function calculateRefDate(now){
+  const day=now.getDay(), d=new Date(now);
+  if(day>=2&&day<=4){d.setDate(d.getDate()-(day-1));}
+  else{const diff=(day>=5)?(day-4):(day+3);d.setDate(d.getDate()-diff);}
+  d.setHours(0,0,0,0); return d;
 }
-
-function calculatePassword(refDate) {
-  const seed = refDate.getFullYear() * 10000 +
-               (refDate.getMonth() + 1) * 100 +
-               refDate.getDate();
-  let hash = '';
-  let s = seed;
-  for (let i = 0; i < 8; i++) {
-    s = (s * 16807 + 12345) & 0x7FFFFFFF;
-    hash += String.fromCharCode(65 + (s % 26));
-  }
-  const month = refDate.getMonth() + 1;
-  return 'BN' + hash.substring(0, 3) + '!' + month;
+function calculatePassword(rd){
+  const seed=rd.getFullYear()*10000+(rd.getMonth()+1)*100+rd.getDate();
+  let hash='',s=seed;
+  for(let i=0;i<8;i++){s=(s*16807+12345)&0x7FFFFFFF;hash+=String.fromCharCode(65+(s%26));}
+  return 'BN'+hash.substring(0,3)+'!'+(rd.getMonth()+1);
 }
-
-function checkPw() {
-  const input = document.getElementById('pw-input').value;
-  const correct = calculatePassword(refDate);
-
-  if (input === correct) {
-    document.getElementById('pw-overlay').style.display = 'none';
-    showLoading(true);
-    loadData();
-    return;
+function checkPw(){
+  const input=document.getElementById('pw-input').value;
+  if(input===calculatePassword(refDate)){
+    document.getElementById('pw-overlay').style.display='none';
+    showLoading(true); loadData(); return;
   }
-
-  document.getElementById('pw-msg').textContent = '비밀번호가 틀렸습니다.';
-  document.getElementById('pw-input').value = '';
+  document.getElementById('pw-msg').textContent='비밀번호가 틀렸습니다.';
+  document.getElementById('pw-input').value='';
   document.getElementById('pw-input').focus();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  refDate = calculateRefDate(new Date());
-  currentMonth = refDate.getMonth() + 1;
-  currentYear = refDate.getFullYear();
-  updateHeaderDate();
-
-  const pwInput = document.getElementById('pw-input');
-  pwInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') checkPw();
-  });
+document.addEventListener('DOMContentLoaded',function(){
+  refDate=calculateRefDate(new Date());
+  currentMonth=refDate.getMonth()+1;
+  currentYear=refDate.getFullYear();
+  const opts={year:'numeric',month:'long',day:'numeric'};
+  document.getElementById('headerDate').textContent=refDate.toLocaleDateString('ko-KR',opts)+' 기준';
+  document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
 });
 
-// ============================================================
-// UTILITY FUNCTIONS
-// ============================================================
-function updateHeaderDate() {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const dateStr = refDate.toLocaleDateString('ko-KR', options);
-  document.getElementById('headerDate').textContent = dateStr;
-}
+/* ===== UTILITY ===== */
+function fmt(n){if(n==null)return'-';if(typeof n==='string')n=parseFloat(n);if(isNaN(n))return'-';return Math.round(n).toLocaleString('ko-KR');}
+function pctClass(v){const n=parseFloat(v);if(isNaN(n))return'';return n>=100?'pct-up':'pct-down';}
 
-function fmt(n) {
-  if (n === null || n === undefined) return '-';
-  if (typeof n === 'string') n = parseFloat(n);
-  if (isNaN(n)) return '-';
-  return Math.round(n).toLocaleString('ko-KR');
+/* ===== LOADING ===== */
+function showLoading(s){document.getElementById('loadingOverlay').classList.toggle('show',s);}
+function showError(m){document.getElementById('errorMsg').textContent=m;document.getElementById('errorBox').classList.add('show');}
+function hideError(){document.getElementById('errorBox').classList.remove('show');}
+async function fetchWithTimeout(url,timeout=FETCH_TIMEOUT){
+  const c=new AbortController(),id=setTimeout(()=>c.abort(),timeout);
+  try{const r=await fetch(url,{signal:c.signal});clearTimeout(id);return r;}
+  catch(e){clearTimeout(id);throw e;}
 }
-
-function fmtDecimal(n) {
-  if (n === null || n === undefined) return '-';
-  if (typeof n === 'string') n = parseFloat(n);
-  if (isNaN(n)) return '-';
-  return n.toLocaleString('ko-KR', { maximumFractionDigits: 2 });
-}
-
-function pctClass(v) {
-  const n = parseFloat(v);
-  if (isNaN(n)) return '';
-  return n >= 100 ? 'pct-up' : 'pct-down';
-}
-
-// ============================================================
-// DATA LOADING
-// ============================================================
-function showLoading(show) {
-  const overlay = document.getElementById('loadingOverlay');
-  if (show) {
-    overlay.classList.add('show');
-  } else {
-    overlay.classList.remove('show');
-  }
-}
-
-function showError(msg) {
-  const box = document.getElementById('errorBox');
-  const msgEl = document.getElementById('errorMsg');
-  msgEl.textContent = msg;
-  box.classList.add('show');
-}
-
-function hideError() {
-  document.getElementById('errorBox').classList.remove('show');
-}
-
-async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeout);
-  try {
-    const resp = await fetch(url, { signal: controller.signal });
-    clearTimeout(id);
-    return resp;
-  } catch (e) {
-    clearTimeout(id);
-    throw e;
-  }
-}
-
-async function loadData() {
+async function loadData(){
   hideError();
+  try{const r=await fetchWithTimeout(GAS_URL);if(!r.ok)throw new Error('HTTP '+r.status);allData=await r.json();renderAllSections();}
+  catch(e){console.error(e);showError('데이터 로딩 실패: '+e.message);}
+  finally{showLoading(false);}
+}
+function retryLoadData(){showLoading(true);loadData();}
 
-  try {
-    const resp = await fetchWithTimeout(GAS_URL);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-
-    allData = await resp.json();
-    renderAllSections();
-  } catch (e) {
-    console.error('Data load error:', e);
-    showError('데이터 로딩에 실패했습니다: ' + e.message);
-  } finally {
-    showLoading(false);
+/* ===== CHANNEL CONVERSION RATES ===== */
+function buildChannelRates(){
+  const plan=allData.plan||[],rates={};
+  for(let r=33;r<plan.length;r++){
+    const ch=String(plan[r][1]||'').trim();if(!ch)continue;
+    let rate=plan[r][currentMonth+3];
+    if(typeof rate==='string'){rate=parseFloat(rate.replace('%','').replace(/,/g,''));if(!isNaN(rate)&&rate>1)rate/=100;}
+    else if(typeof rate==='number'&&rate>1)rate/=100;
+    if(rate&&!isNaN(rate)&&rate>0)rates[ch]=rate;
   }
+  return rates;
+}
+function getChannelRate(rates,ch){
+  if(rates[ch]!==undefined)return rates[ch];
+  const plan=allData.plan||[];
+  let ht=0,gt=0;
+  if(plan.length>18&&plan[18].length>currentMonth+3){const v=plan[18][currentMonth+3];ht=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
+  if(plan.length>3&&plan[3].length>currentMonth+3){const v=plan[3][currentMonth+3];gt=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
+  if(ht>0&&gt>0)return ht/gt;
+  return DEFAULT_CONVERSION_RATE;
 }
 
-function retryLoadData() {
-  showLoading(true);
-  loadData();
-}
+/* ===== S1: MONTHLY SUMMARY ===== */
+function renderSection1(){
+  if(!allData||!allData.rows){document.getElementById('s1-section').innerHTML='';return;}
+  const rows=allData.rows||[],plan=allData.plan||[],channels=allData.channels||[];
+  const M=currentMonth,refDay=refDate.getDate(),dateStr=M+'/1~'+M+'/'+refDay;
+  const chRates=buildChannelRates();
 
-// ============================================================
-// SECTION 1: MONTHLY SUMMARY
-// ============================================================
-function renderSection1() {
-  if (!allData || !allData.rows) {
-    document.getElementById('s1-body').innerHTML = '데이터 없음';
-    return;
-  }
-
-  const fixedDateStr = `${currentMonth}/1~${currentMonth}/${refDate.getDate()}`;
-  const rows = allData.rows || [];
-  const plan = allData.plan || [];
-
-  // Calculate monthly cumulative for current month
-  let geomyuk_cumulative = 0;
-  rows.forEach(row => {
-    if (new Date(row.d).getMonth() === currentMonth - 1) {
-      const daySum = (row.v || []).reduce((a, b) => a + b, 0);
-      geomyuk_cumulative += daySum;
+  let geo_cum=0,hw_cum=0;
+  rows.forEach(row=>{
+    const d=new Date(row.d);
+    if(d.getMonth()===M-1&&d.getFullYear()===currentYear){
+      (row.v||[]).forEach((val,idx)=>{
+        geo_cum+=val;
+        hw_cum+=val*getChannelRate(chRates,channels[idx]||'');
+      });
     }
   });
+  hw_cum=Math.round(hw_cum);
 
-  // Get targets from plan data
-  // plan[3] = 거래액 TTL row
-  // plan[18] = 회계 TTL row
-  // Column index for current month = currentMonth + 3 (columns D onwards = months 1-12)
-  let geomyuk_target = 10000000;
-  let hwake_target = 8000000;
+  let geo_tgt=0,hw_tgt=0;
+  if(plan.length>3&&plan[3].length>M+3){const v=plan[3][M+3];geo_tgt=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
+  if(plan.length>18&&plan[18].length>M+3){const v=plan[18][M+3];hw_tgt=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
+  const geo_prog=geo_tgt>0?Math.round(geo_cum/geo_tgt*100):0;
+  const hw_prog=hw_tgt>0?Math.round(hw_cum/hw_tgt*100):0;
 
-  if (plan.length > 3 && plan[3].length > currentMonth + 3) {
-    const val = plan[3][currentMonth + 3];
-    if (val) geomyuk_target = typeof val === 'string' ? parseFloat(val.toString().replace(/,/g, '')) : val;
+  function getMS(mn,yr){
+    let g=0,h=0;
+    rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(chRates,channels[idx]||'');});}});
+    return{g,h:Math.round(h)};
   }
 
-  if (plan.length > 18 && plan[18].length > currentMonth + 3) {
-    const val = plan[18][currentMonth + 3];
-    if (val) hwake_target = typeof val === 'string' ? parseFloat(val.toString().replace(/,/g, '')) : val;
+  const pm1=M>1?M-1:12,pm1y=M>1?currentYear:currentYear-1;
+  const pm2=M>2?M-2:12+(M-2),pm2y=M>2?currentYear:currentYear-1;
+  const pm3=M>3?M-3:12+(M-3),pm3y=M>3?currentYear:currentYear-1;
+  const m1=getMS(pm1,pm1y),m2=getMS(pm2,pm2y),m3=getMS(pm3,pm3y),ly=getMS(M,currentYear-1);
+  const gp=(c,r)=>r>0?Math.round(c/r*100):0;
+
+  function makeCard(label,cum,pct){
+    return '<div class="mc-card"><div class="mc-title">'+label+'</div>'+
+      '<div class="mc-row"><span class="mc-label">누계</span><span class="mc-val">'+fmt(cum)+'</span></div>'+
+      '<div class="mc-row"><span class="mc-label">동기비</span><span class="mc-val '+pctClass(pct)+'">'+pct+'%</span></div></div>';
   }
 
-  // Calculate conversion rate and hwake cumulative
-  let conversion_rate = DEFAULT_CONVERSION_RATE;
-  if (hwake_target > 0 && geomyuk_target > 0) {
-    conversion_rate = hwake_target / geomyuk_target;
+  function makeTable(title,cum,tgt,prog,unit,c1,c2,c3,cly){
+    const p1=gp(cum,c1),p2=gp(cum,c2),p3=gp(cum,c3),ply=gp(cum,cly);
+    const desktop='<div class="s1-desktop"><table class="summary"><tr>'+
+      '<th style="width:18%;background:#0F1B3D;color:#fff;font-size:1rem;">'+M+'월 누계<br><span style="font-size:.75rem;font-weight:400">('+dateStr+')</span></th>'+
+      '<td class="big-num" style="width:22%">'+fmt(cum)+'</td>'+
+      '<th style="width:14%;background:#1B2E5C;color:#fff;">'+M+'월 '+unit+' 목표</th>'+
+      '<td style="width:18%;font-weight:600;">'+fmt(tgt)+'</td>'+
+      '<th style="width:10%;background:#4A90D9;color:#fff;">진도율</th>'+
+      '<td style="width:18%;font-weight:700;font-size:1.3rem;" class="'+(prog>=100?'pct-up':'pct-down')+'">'+prog+'%</td></tr></table>'+
+      '<table class="summary" style="margin-top:-1px;"><tr>'+
+      '<td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">'+
+        '<div class="row-item"><span class="label">'+pm1+'월 누계</span><span class="value">'+fmt(c1)+'</span></div>'+
+        '<div class="row-item pct"><span class="label">'+pm1+'월 동기비</span><span class="value '+pctClass(p1)+'">'+p1+'%</span></div></td>'+
+      '<td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">'+
+        '<div class="row-item"><span class="label">'+pm2+'월 누계</span><span class="value">'+fmt(c2)+'</span></div>'+
+        '<div class="row-item pct"><span class="label">'+pm2+'월 동기비</span><span class="value '+pctClass(p2)+'">'+p2+'%</span></div></td>'+
+      '<td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">'+
+        '<div class="row-item"><span class="label">'+pm3+'월 누계</span><span class="value">'+fmt(c3)+'</span></div>'+
+        '<div class="row-item pct"><span class="label">'+pm3+'월 동기비</span><span class="value '+pctClass(p3)+'">'+p3+'%</span></div></td>'+
+      '<td class="sub-cell" style="width:25%;">'+
+        '<div class="row-item"><span class="label">25\' '+M+'월 누계</span><span class="value">'+fmt(cly)+'</span></div>'+
+        '<div class="row-item pct"><span class="label">25\' 동기비</span><span class="value '+pctClass(ply)+'">'+ply+'%</span></div></td>'+
+      '</tr></table></div>';
+
+    const mobile='<div class="s1-mobile"><div class="mk-hero">'+
+      '<div class="mk-hero-label">'+M+'월 누계 <span>('+dateStr+')</span></div>'+
+      '<div class="mk-hero-value">'+fmt(cum)+'</div></div>'+
+      '<div class="mk-sub-row"><div class="mk-sub-item"><div class="mk-sub-label">'+M+'월 '+unit+' 목표</div><div class="mk-sub-value">'+fmt(tgt)+'</div></div>'+
+      '<div class="mk-sub-item mk-progress"><div class="mk-sub-label">진도율</div><div class="mk-sub-value '+(prog>=100?'pct-up':'pct-down')+'">'+prog+'%</div></div></div>'+
+      '<div class="mc-grid">'+makeCard(pm1+'월',c1,p1)+makeCard(pm2+'월',c2,p2)+makeCard(pm3+'월',c3,p3)+makeCard('25\' '+M+'월',cly,ply)+'</div></div>';
+
+    return '<div class="summary-wrap"><div class="summary-label">'+title+' <span style="color:#888;font-weight:400;font-size:.82rem">(단위: 원)</span></div>'+desktop+mobile+'</div>';
   }
 
-  const hwake_cumulative = Math.round(geomyuk_cumulative * conversion_rate);
-
-  // Calculate progress rates
-  const geomyuk_progress = geomyuk_target > 0 ? Math.round((geomyuk_cumulative / geomyuk_target) * 100) : 0;
-  const hwake_progress = hwake_target > 0 ? Math.round((hwake_cumulative / hwake_target) * 100) : 0;
-
-  // Previous month comparisons - actual data from rows
-  function getMonthSum(monthNum, year) {
-    let sum = 0;
-    rows.forEach(row => {
-      const d = new Date(row.d);
-      if (d.getFullYear() === year && d.getMonth() === monthNum - 1) {
-        sum += (row.v || []).reduce((a, b) => a + b, 0);
-      }
-    });
-    return sum;
-  }
-
-  // m-1, m-2, 12월, 전년 동월
-  const prevMonth1 = currentMonth > 1 ? currentMonth - 1 : 12;
-  const prevMonth1Year = currentMonth > 1 ? currentYear : currentYear - 1;
-  const prevMonth2 = currentMonth > 2 ? currentMonth - 2 : 12 + (currentMonth - 2);
-  const prevMonth2Year = currentMonth > 2 ? currentYear : currentYear - 1;
-
-  const m1_geomyuk = getMonthSum(prevMonth1, prevMonth1Year);
-  const m2_geomyuk = getMonthSum(prevMonth2, prevMonth2Year);
-  const m12_geomyuk = getMonthSum(12, currentYear - 1);
-  const ly3_geomyuk = getMonthSum(currentMonth, currentYear - 1);
-
-  const m1_hwake = Math.round(m1_geomyuk * conversion_rate);
-  const m2_hwake = Math.round(m2_geomyuk * conversion_rate);
-  const m12_hwake = Math.round(m12_geomyuk * conversion_rate);
-  const ly3_hwake = Math.round(ly3_geomyuk * conversion_rate);
-
-  const m1_geomyuk_pct = m1_geomyuk > 0 ? Math.round((geomyuk_cumulative / m1_geomyuk) * 100) : 0;
-  const m2_geomyuk_pct = m2_geomyuk > 0 ? Math.round((geomyuk_cumulative / m2_geomyuk) * 100) : 0;
-  const m12_geomyuk_pct = m12_geomyuk > 0 ? Math.round((geomyuk_cumulative / m12_geomyuk) * 100) : 0;
-  const ly3_geomyuk_pct = ly3_geomyuk > 0 ? Math.round((geomyuk_cumulative / ly3_geomyuk) * 100) : 0;
-
-  const m1_hwake_pct = m1_hwake > 0 ? Math.round((hwake_cumulative / m1_hwake) * 100) : 0;
-  const m2_hwake_pct = m2_hwake > 0 ? Math.round((hwake_cumulative / m2_hwake) * 100) : 0;
-  const m12_hwake_pct = m12_hwake > 0 ? Math.round((hwake_cumulative / m12_hwake) * 100) : 0;
-  const ly3_hwake_pct = ly3_hwake > 0 ? Math.round((hwake_cumulative / ly3_hwake) * 100) : 0;
-
-  let html = `
-  <div class="summary-wrap">
-    <div class="summary-label">1-1. ${currentMonth}월 매출액 현황 (회계기준) (${fixedDateStr}) <span style="color:#888;font-weight:400;font-size:.82rem">(단위: 원)</span></div>
-    <table class="summary">
-      <tr>
-        <th style="width:18%;background:#0F1B3D;color:#fff;font-size:1rem;">${currentMonth}월 누계 (${fixedDateStr})</th>
-        <td class="big-num" style="width:22%">${fmt(hwake_cumulative)}</td>
-        <th style="width:14%;background:#1B2E5C;color:#fff;">${currentMonth}월 매출액 목표</th>
-        <td style="width:18%;font-weight:600;">${fmt(hwake_target)}</td>
-        <th style="width:10%;background:#4A90D9;color:#fff;">진도율</th>
-        <td style="width:18%;font-weight:700;font-size:1.3rem;" class="${hwake_progress >= 100 ? 'pct-up' : 'pct-down'}">${hwake_progress}%</td>
-      </tr>
-    </table>
-    <table class="summary" style="margin-top:-1px;">
-      <tr>
-        <td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">
-          <div class="row-item"><span class="label">${prevMonth1}월 누계</span><span class="value">${fmt(m1_hwake)}</span></div>
-          <div class="row-item pct"><span class="label">${prevMonth1}월 동기비</span><span class="value ${pctClass(m1_hwake_pct)}">${m1_hwake_pct}%</span></div>
-        </td>
-        <td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">
-          <div class="row-item"><span class="label">${prevMonth2}월 누계</span><span class="value">${fmt(m2_hwake)}</span></div>
-          <div class="row-item pct"><span class="label">${prevMonth2}월 동기비</span><span class="value ${pctClass(m2_hwake_pct)}">${m2_hwake_pct}%</span></div>
-        </td>
-        <td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">
-          <div class="row-item"><span class="label">12월 누계</span><span class="value">${fmt(m12_hwake)}</span></div>
-          <div class="row-item pct"><span class="label">12월 동기비</span><span class="value ${pctClass(m12_hwake_pct)}">${m12_hwake_pct}%</span></div>
-        </td>
-        <td class="sub-cell" style="width:25%;">
-          <div class="row-item"><span class="label">25' ${currentMonth}월 누계</span><span class="value">${fmt(ly3_hwake)}</span></div>
-          <div class="row-item pct"><span class="label">25' 동기비</span><span class="value ${pctClass(ly3_hwake_pct)}">${ly3_hwake_pct}%</span></div>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="summary-wrap">
-    <div class="summary-label">1-2. ${currentMonth}월 거래액 현황 (${fixedDateStr}) <span style="color:#888;font-weight:400;font-size:.82rem">(단위: 원)</span></div>
-    <table class="summary">
-      <tr>
-        <th style="width:18%;background:#0F1B3D;color:#fff;font-size:1rem;">${currentMonth}월 누계 (${fixedDateStr})</th>
-        <td class="big-num" style="width:22%">${fmt(geomyuk_cumulative)}</td>
-        <th style="width:14%;background:#1B2E5C;color:#fff;">${currentMonth}월 거래액 목표</th>
-        <td style="width:18%;font-weight:600;">${fmt(geomyuk_target)}</td>
-        <th style="width:10%;background:#4A90D9;color:#fff;">진도율</th>
-        <td style="width:18%;font-weight:700;font-size:1.3rem;" class="${geomyuk_progress >= 100 ? 'pct-up' : 'pct-down'}">${geomyuk_progress}%</td>
-      </tr>
-    </table>
-    <table class="summary" style="margin-top:-1px;">
-      <tr>
-        <td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">
-          <div class="row-item"><span class="label">${prevMonth1}월 누계</span><span class="value">${fmt(m1_geomyuk)}</span></div>
-          <div class="row-item pct"><span class="label">${prevMonth1}월 동기비</span><span class="value ${pctClass(m1_geomyuk_pct)}">${m1_geomyuk_pct}%</span></div>
-        </td>
-        <td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">
-          <div class="row-item"><span class="label">${prevMonth2}월 누계</span><span class="value">${fmt(m2_geomyuk)}</span></div>
-          <div class="row-item pct"><span class="label">${prevMonth2}월 동기비</span><span class="value ${pctClass(m2_geomyuk_pct)}">${m2_geomyuk_pct}%</span></div>
-        </td>
-        <td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">
-          <div class="row-item"><span class="label">12월 누계</span><span class="value">${fmt(m12_geomyuk)}</span></div>
-          <div class="row-item pct"><span class="label">12월 동기비</span><span class="value ${pctClass(m12_geomyuk_pct)}">${m12_geomyuk_pct}%</span></div>
-        </td>
-        <td class="sub-cell" style="width:25%;">
-          <div class="row-item"><span class="label">25' ${currentMonth}월 누계</span><span class="value">${fmt(ly3_geomyuk)}</span></div>
-          <div class="row-item pct"><span class="label">25' 동기비</span><span class="value ${pctClass(ly3_geomyuk_pct)}">${ly3_geomyuk_pct}%</span></div>
-        </td>
-      </tr>
-    </table>
-  </div>
-  `;
-
-  document.getElementById('s1-body').innerHTML = html;
+  document.getElementById('s1-section').innerHTML=
+    '<div class="section"><div class="section-header"><div class="section-header-left"><span>1. 당월('+M+'월) 현황</span><span class="badge">SUMMARY</span></div></div><div class="section-body">'+
+    makeTable('1-1. '+M+'월 매출액 현황 (회계기준)',hw_cum,hw_tgt,hw_prog,'매출액',m1.h,m2.h,m3.h,ly.h)+
+    makeTable('1-2. '+M+'월 거래액 현황',geo_cum,geo_tgt,geo_prog,'거래액',m1.g,m2.g,m3.g,ly.g)+
+    '</div></div>';
 }
 
-// ============================================================
-// SECTION 2: DAILY DATA (TRANSPOSED)
-// ============================================================
-function renderSection2() {
-  if (!allData || !allData.rows) {
-    document.getElementById('s2-body').innerHTML = '데이터 없음';
-    return;
-  }
+/* ===== S2: DAILY TRANSPOSED ===== */
+function renderSection2(){
+  if(!allData||!allData.rows){document.getElementById('s2-section').innerHTML='';return;}
+  const rows=allData.rows||[],dayN=['(일)','(월)','(화)','(수)','(목)','(금)','(토)'];
+  const rds=refDate.getFullYear()+'-'+String(refDate.getMonth()+1).padStart(2,'0')+'-'+String(refDate.getDate()).padStart(2,'0');
+  const fr=rows.filter(r=>r.d<=rds),last=fr.slice(-7),prev=fr.length>14?fr.slice(-14,-7):[];
+  if(!last.length){document.getElementById('s2-section').innerHTML='';return;}
 
-  const rows = allData.rows || [];
-  const dayNames = ['(일)', '(월)', '(화)', '(수)', '(목)', '(금)', '(토)'];
+  let h='<table class="data-tbl"><thead><tr><th class="scol scol-1">주차</th>';
+  last.forEach(r=>{const d=new Date(r.d);h+='<th>'+(d.getMonth()+1)+'.'+d.getDate()+dayN[d.getDay()]+'</th>';});
+  h+='<th style="background:#E8EBF0;">TOTAL</th></tr></thead><tbody>';
 
-  // Get data for current week (based on refDate)
-  let weekStart = new Date(refDate);
-  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+  let gt=0;
+  h+='<tr class="row-total"><td class="center scol scol-1">금주</td>';
+  last.forEach(r=>{const s=(r.v||[]).reduce((a,b)=>a+b,0);gt+=s;h+='<td>'+fmt(s)+'</td>';});
+  h+='<td class="row-total">'+fmt(gt)+'</td></tr>';
 
-  // Current week: last 7 days from refDate going backwards
-  const refDateStr = `${refDate.getFullYear()}-${String(refDate.getMonth()+1).padStart(2,'0')}-${String(refDate.getDate()).padStart(2,'0')}`;
-  const filteredRows = rows.filter(r => r.d <= refDateStr);
-  const lastRows = filteredRows.slice(-7);
+  let pt=0;
+  h+='<tr class="row-total"><td class="center scol scol-1">전주</td>';
+  last.forEach((r,i)=>{const pr=prev.length>i?prev[i]:null;const s=pr?(pr.v||[]).reduce((a,b)=>a+b,0):0;pt+=s;h+='<td>'+fmt(s)+'</td>';});
+  h+='<td class="row-total">'+fmt(pt)+'</td></tr>';
 
-  // Previous week: 7 days before that
-  const prevWeekRows = filteredRows.length > 14 ? filteredRows.slice(-14, -7) : [];
-
-  if (lastRows.length === 0) {
-    document.getElementById('s2-body').innerHTML = '데이터 없음';
-    return;
-  }
-
-  // Build header with dates
-  let html = `<table class="data-tbl">
-    <thead>
-      <tr>
-        <th class="scol scol-1">주차</th>
-  `;
-
-  const dateHeaders = [];
-  lastRows.forEach(row => {
-    const d = new Date(row.d);
-    const dateStr = `${d.getMonth()+1}.${d.getDate()}${dayNames[d.getDay()]}`;
-    dateHeaders.push(dateStr);
-    html += `<th>${dateStr}</th>`;
+  h+='<tr class="row-total" style="border-top:2px solid #1B2E5C;"><td class="center scol scol-1">전주비</td>';
+  last.forEach((r,i)=>{
+    const s=(r.v||[]).reduce((a,b)=>a+b,0);
+    const pr=prev.length>i?prev[i]:null;const ps=pr?(pr.v||[]).reduce((a,b)=>a+b,0):0;
+    if(ps===0&&s===0){h+='<td class="center">-</td>';}
+    else{const p=ps>0?Math.round(s/ps*100):100;h+='<td class="center '+(p>=100?'pct-up':'pct-down')+'">'+p+'%</td>';}
   });
+  const tp=pt>0?Math.round(gt/pt*100):0;
+  h+='<td class="center '+(tp>=100?'pct-up':'pct-down')+'">'+(pt===0?'-':tp+'%')+'</td></tr></tbody></table>';
 
-  html += `
-        <th style="background:#E8EBF0;">TOTAL</th>
-      </tr>
-    </thead>
-    <tbody>
-  `;
-
-  // 금주 row (current week)
-  let geumjuTotal = 0;
-  html += `<tr class="row-total">
-    <td class="center scol scol-1">금주</td>
-  `;
-  lastRows.forEach(row => {
-    const daySum = (row.v || []).reduce((a, b) => a + b, 0);
-    geumjuTotal += daySum;
-    html += `<td>${fmt(daySum)}</td>`;
-  });
-  html += `<td class="row-total">${fmt(geumjuTotal)}</td>
-  </tr>
-  `;
-
-  // 전주 row (previous week)
-  let jeonjuTotal = 0;
-  html += `<tr class="row-total">
-    <td class="center scol scol-1">전주</td>
-  `;
-  lastRows.forEach((row, idx) => {
-    const prevRow = prevWeekRows.length > idx ? prevWeekRows[idx] : null;
-    const daySum = prevRow ? (prevRow.v || []).reduce((a, b) => a + b, 0) : 0;
-    jeonjuTotal += daySum;
-    html += `<td>${fmt(daySum)}</td>`;
-  });
-  html += `<td class="row-total">${fmt(jeonjuTotal)}</td>
-  </tr>
-  `;
-
-  // 전주비 row (percentage comparison)
-  html += `<tr class="row-total" style="border-top:2px solid #1B2E5C;">
-    <td class="center scol scol-1">전주비</td>
-  `;
-  let totalPct = jeonjuTotal > 0 ? Math.round((geumjuTotal / jeonjuTotal) * 100) : 100;
-  lastRows.forEach((row, idx) => {
-    const daySum = (row.v || []).reduce((a, b) => a + b, 0);
-    const prevRow = prevWeekRows.length > idx ? prevWeekRows[idx] : null;
-    const prevDaySum = prevRow ? (prevRow.v || []).reduce((a, b) => a + b, 0) : 0;
-    const pct = prevDaySum > 0 ? Math.round((daySum / prevDaySum) * 100) : (daySum > 0 ? 100 : 0);
-    const pctStr = prevDaySum === 0 && daySum === 0 ? '-' : `<span class="${pct >= 100 ? 'pct-up' : 'pct-down'}">${pct}%</span>`;
-    html += `<td>${pctStr}</td>`;
-  });
-  const totalPctStr = jeonjuTotal === 0 ? '-' : `<span class="${totalPct >= 100 ? 'pct-up' : 'pct-down'}">${totalPct}%</span>`;
-  html += `<td class="row-total">${totalPctStr}</td>
-  </tr>
-  `;
-
-  html += `
-    </tbody>
-  </table>
-  `;
-
-  document.getElementById('s2-body').innerHTML = html;
+  document.getElementById('s2-section').innerHTML=
+    '<div class="section"><div class="section-header"><div class="section-header-left"><span>2. 일별 거래액 현황 (최근 7일)</span><span class="badge">DAILY</span></div></div><div class="section-body">'+h+'</div></div>';
 }
 
-// ============================================================
-// SECTION 3: CHART (W1-W52 GROUPED BAR)
-// ============================================================
-function setChartDay(day) {
-  chartDay = day;
-  document.querySelectorAll('.chart-day-btn').forEach(btn => {
-    btn.classList.remove('active');
+/* ===== S3: CHART ===== */
+function setChartDay(day){chartDay=day;document.querySelectorAll('.chart-day-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');renderSection3();}
+
+function renderSection3(){
+  if(!allData||!allData.rows)return;
+  const rows=allData.rows||[],weeks={};
+  rows.forEach(row=>{
+    const wk=chartDay==='tue'?row.tw:row.fw;if(!wk)return;
+    if(!weeks[wk])weeks[wk]={2024:0,2025:0,2026:0};
+    const y=new Date(row.d).getFullYear(),s=(row.v||[]).reduce((a,b)=>a+b,0);
+    if(weeks[wk][y]!==undefined)weeks[wk][y]+=s;
   });
-  event.target.classList.add('active');
-  renderSection3();
+  const labels=[];for(let w=1;w<=52;w++)labels.push('W'+w);
+  const d24=labels.map(w=>weeks[w]?weeks[w][2024]/1e6:0);
+  const d25=labels.map(w=>weeks[w]?weeks[w][2025]/1e6:0);
+  const d26=labels.map(w=>weeks[w]?weeks[w][2026]/1e6:0);
+
+  const rds=refDate.getFullYear()+'-'+String(refDate.getMonth()+1).padStart(2,'0')+'-'+String(refDate.getDate()).padStart(2,'0');
+  const cwr=rows.find(r=>r.d===rds);
+  const cwl=cwr?(chartDay==='tue'?cwr.tw:cwr.fw):null;
+  const ci=cwl?parseInt(cwl.substring(1))-1:-1;
+  const c26=labels.map((_,i)=>i===ci?'#E53935':'rgba(26,75,150,0.85)');
+  const b26=labels.map((_,i)=>i===ci?'#B71C1C':'rgba(26,75,150,1)');
+
+  document.getElementById('s3-section').innerHTML=
+    '<div class="section"><div class="section-header"><div class="section-header-left"><span>3. \'24~\'26 주차별 거래액 추이</span><span class="badge">WEEKLY TREND</span></div>'+
+    '<div><button class="chart-day-btn '+(chartDay==='tue'?'active':'')+'" onclick="setChartDay(\'tue\')">화요일 기준</button>'+
+    '<button class="chart-day-btn '+(chartDay==='fri'?'active':'')+'" onclick="setChartDay(\'fri\')">금요일 기준</button></div></div>'+
+    '<div class="section-body s3-body"><div class="s3-y-axis" id="s3YAxis"></div><div class="s3-scroll"><div class="chart-container"><canvas id="s3Chart"></canvas></div></div></div></div>';
+
+  const isMob=window.innerWidth<=768;
+  const ctx=document.getElementById('s3Chart').getContext('2d');
+  if(s3ChartInstance)s3ChartInstance.destroy();
+  s3ChartInstance=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[
+    {label:'2024',data:d24,backgroundColor:'rgba(200,210,220,0.6)',borderColor:'rgba(160,170,180,0.8)',borderWidth:1},
+    {label:'2025',data:d25,backgroundColor:'rgba(100,160,220,0.55)',borderColor:'rgba(80,140,200,0.8)',borderWidth:1},
+    {label:'2026',data:d26,backgroundColor:c26,borderColor:b26,borderWidth:1}
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{
+    legend:{position:'top',labels:{font:{family:'Noto Sans KR',size:isMob?13:12},usePointStyle:true,
+      generateLabels:function(chart){return chart.data.datasets.map((d,i)=>({text:d.label,
+        fillStyle:i===0?'rgba(200,210,220,0.6)':i===1?'rgba(100,160,220,0.55)':'rgba(26,75,150,0.85)',
+        strokeStyle:i===0?'rgba(160,170,180,0.8)':i===1?'rgba(80,140,200,0.8)':'rgba(26,75,150,1)',
+        lineWidth:1,datasetIndex:i,hidden:!chart.isDatasetVisible(i)}));}}},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y?c.parsed.y.toFixed(0):'-')+'백만원'}}},
+    scales:{x:{grid:{display:false},ticks:{font:function(c){return c.index===ci?{family:'Noto Sans KR',size:isMob?13:11,weight:'bold'}:{family:'Noto Sans KR',size:isMob?12:10};},maxRotation:90,minRotation:45,color:function(c){return c.index===ci?'#E53935':'#666';}}},
+    y:{beginAtZero:true,display:!isMob,ticks:{font:{family:'Noto Sans KR',size:11},callback:v=>v.toLocaleString()},title:{display:true,text:'백만원',font:{family:'Noto Sans KR',size:12}}}}}});
+
+  if(isMob)setTimeout(()=>{
+    const yDiv=document.getElementById('s3YAxis');if(!yDiv||!s3ChartInstance)return;
+    const yS=s3ChartInstance.scales.y;if(!yS)return;const tks=yS.ticks;
+    const ca=s3ChartInstance.chartArea,ch=s3ChartInstance.canvas.offsetHeight;
+    yDiv.style.paddingTop=ca.top+'px';yDiv.style.paddingBottom=(ch-ca.bottom)+'px';
+    let yh='';for(let i=tks.length-1;i>=0;i--)yh+='<div class="y-tick">'+Number(tks[i].value).toLocaleString()+'</div>';
+    yDiv.innerHTML=yh;
+  },150);
 }
 
-function renderSection3() {
-  if (!allData || !allData.rows) {
-    document.getElementById('s3-section').style.display = 'none';
-    return;
-  }
+/* ===== S4: CHANNEL DATA (zero-channel hiding) ===== */
+function renderSection4(){
+  if(!allData||!allData.rows||!allData.channels){document.getElementById('s4-section').innerHTML='';return;}
+  const rows=allData.rows||[],channels=allData.channels||[],dayN=['(일)','(월)','(화)','(수)','(목)','(금)','(토)'];
+  const rds=refDate.getFullYear()+'-'+String(refDate.getMonth()+1).padStart(2,'0')+'-'+String(refDate.getDate()).padStart(2,'0');
+  const fr=rows.filter(r=>r.d<=rds),last=fr.slice(-7),prev=fr.length>14?fr.slice(-14,-7):[];
 
-  const rows = allData.rows || [];
-  const years = [2024, 2025, 2026];
+  let dates=[];
+  last.forEach(r=>{const d=new Date(r.d);dates.push((d.getMonth()+1)+'.'+d.getDate()+dayN[d.getDay()]);});
 
-  // Group by week label
-  const weeks = {};
-
-  rows.forEach(row => {
-    const weeksKey = chartDay === 'tue' ? row.tw : row.fw;
-    if (!weeksKey) return;
-    if (!weeks[weeksKey]) weeks[weeksKey] = { 2024: 0, 2025: 0, 2026: 0 };
-
-    const d = new Date(row.d);
-    const year = d.getFullYear();
-    const daySum = (row.v || []).reduce((a, b) => a + b, 0);
-    if (weeks[weeksKey][year] !== undefined) {
-      weeks[weeksKey][year] += daySum;
-    }
+  const chData=[];
+  channels.slice(0,17).forEach((ch,idx)=>{
+    let cs=0,ps=0;const dv=[];
+    for(let i=0;i<last.length;i++){const v=(last[i]&&last[i].v&&last[i].v[idx]!=null)?last[i].v[idx]:0;dv.push(v);cs+=v;}
+    for(let i=0;i<prev.length;i++){const v=(prev[i]&&prev[i].v&&prev[i].v[idx]!=null)?prev[i].v[idx]:0;ps+=v;}
+    if(cs===0&&ps===0)return; // 금주+전주 모두 0이면 숨김
+    const pct=ps>0?Math.round(cs/ps*100):null;
+    chData.push({name:ch,dv:dv,cs:cs,ps:ps,pct:pct});
   });
 
-  // Build all weeks W1-W52
-  const allWeekLabels = [];
-  for (let w = 1; w <= 52; w++) {
-    allWeekLabels.push(`W${w}`);
-  }
+  let h='<table class="data-tbl"><thead><tr><th class="scol scol-1" style="min-width:100px;">채널</th>';
+  dates.forEach(d=>h+='<th>'+d+'</th>');
+  h+='<th>합계</th><th>전주합계</th><th>전주비</th></tr></thead><tbody>';
 
-  // Extract data for each year (divide by 1,000,000 for display in 백만원)
-  const data2024 = allWeekLabels.map(w => (weeks[w] ? weeks[w][2024] / 1000000 : 0));
-  const data2025 = allWeekLabels.map(w => (weeks[w] ? weeks[w][2025] / 1000000 : 0));
-  const data2026 = allWeekLabels.map(w => (weeks[w] ? weeks[w][2026] / 1000000 : 0));
-
-  // Determine current week index
-  const refDateStr = `${refDate.getFullYear()}-${String(refDate.getMonth()+1).padStart(2,'0')}-${String(refDate.getDate()).padStart(2,'0')}`;
-  const currentWeekRow = rows.find(r => r.d === refDateStr);
-  const currentWeekLabel = currentWeekRow ? (chartDay === 'tue' ? currentWeekRow.tw : currentWeekRow.fw) : null;
-  const currentWeekIndex = currentWeekLabel ? parseInt(currentWeekLabel.substring(1)) - 1 : -1;
-
-  // Build bar colors with red highlight for current week
-  const buildColors = (isCurrentWeek) => {
-    return allWeekLabels.map((w, idx) => idx === currentWeekIndex ? '#E53935' : (isCurrentWeek ? 'rgba(15,40,100,0.95)' : undefined));
-  };
-
-  const buildBorderColors = (isCurrentWeek) => {
-    return allWeekLabels.map((w, idx) => idx === currentWeekIndex ? '#B71C1C' : (isCurrentWeek ? 'rgba(15,40,100,1)' : undefined));
-  };
-
-  // Render chart
-  const ctx = document.getElementById('s3Chart').getContext('2d');
-  if (s3ChartInstance) s3ChartInstance.destroy();
-
-  s3ChartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: allWeekLabels,
-      datasets: [
-        {
-          label: '2024',
-          data: data2024,
-          backgroundColor: 'rgba(200,210,220,0.6)',
-          borderColor: 'rgba(160,170,180,0.8)',
-          borderWidth: 1
-        },
-        {
-          label: '2025',
-          data: data2025,
-          backgroundColor: 'rgba(100,150,210,0.7)',
-          borderColor: 'rgba(150,185,220,0.6)',
-          borderWidth: 1
-        },
-        {
-          label: '2026',
-          data: data2026,
-          backgroundColor: buildColors(true),
-          borderColor: buildBorderColors(true),
-          borderWidth: 1
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: { font: { size: 12 }, padding: 12 }
-        },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return context.dataset.label + ': ' + context.parsed.y.toFixed(0) + '백만원';
-            }
-          }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(v) {
-              return v.toFixed(0) + '백만';
-            }
-          }
-        }
-      }
-    }
+  chData.forEach(ch=>{
+    const ps=ch.pct===null?'-':(ch.pct>=100?'<span class="pct-up">'+ch.pct+'%</span>':'<span class="pct-down">'+ch.pct+'%</span>');
+    h+='<tr><td class="left scol scol-1" style="font-weight:600;">'+ch.name+'</td>';
+    ch.dv.forEach(v=>h+='<td>'+fmt(v)+'</td>');
+    h+='<td class="row-total">'+fmt(ch.cs)+'</td><td>'+fmt(ch.ps)+'</td><td class="center">'+ps+'</td></tr>';
   });
+
+  // Total (ALL channels incl. hidden zeros)
+  let ts=0,tps=0;const td=[];
+  for(let i=0;i<last.length;i++){const s=(last[i]&&last[i].v)?last[i].v.reduce((a,b)=>a+(b||0),0):0;td.push(s);ts+=s;}
+  for(let i=0;i<prev.length;i++){tps+=(prev[i]&&prev[i].v)?prev[i].v.reduce((a,b)=>a+(b||0),0):0;}
+  const tpct=tps>0?Math.round(ts/tps*100):null;
+  h+='<tr class="subtotal-depth0"><td class="scol scol-1" style="font-weight:700;">전체</td>';
+  td.forEach(v=>h+='<td>'+fmt(v)+'</td>');
+  h+='<td>'+fmt(ts)+'</td><td>'+fmt(tps)+'</td><td class="center">'+(tpct===null?'-':tpct+'%')+'</td></tr></tbody></table>';
+
+  document.getElementById('s4-section').innerHTML=
+    '<div class="section"><div class="section-header"><div class="section-header-left"><span>4. 채널별 거래액 현황 (최근 7일)</span><span class="badge">CHANNEL</span></div></div><div class="section-body">'+h+'</div></div>';
 }
 
-// ============================================================
-// SECTION 4: CHANNEL DATA
-// ============================================================
-function renderSection4() {
-  if (!allData || !allData.rows || !allData.channels) {
-    document.getElementById('s4-body').innerHTML = '데이터 없음';
-    return;
-  }
-
-  const rows = allData.rows || [];
-  const channels = allData.channels || [];
-  const dayNames = ['(일)', '(월)', '(화)', '(수)', '(목)', '(금)', '(토)'];
-
-  // Filter rows up to refDate, then get last 7 days
-  const refDateStr = `${refDate.getFullYear()}-${String(refDate.getMonth()+1).padStart(2,'0')}-${String(refDate.getDate()).padStart(2,'0')}`;
-  const filteredRows = rows.filter(r => r.d <= refDateStr);
-  const lastRows = filteredRows.slice(-7);
-
-  let s4dates = [];
-  lastRows.forEach(row => {
-    const d = new Date(row.d);
-    s4dates.push(`${d.getMonth()+1}.${d.getDate()}${dayNames[d.getDay()]}`);
-  });
-
-  // Calculate previous week rows (7 days before lastRows)
-  const prevWeekRows = filteredRows.length > 14 ? filteredRows.slice(-14, -7) : [];
-
-  // Build header
-  let html = `<table class="data-tbl">
-    <thead>
-      <tr>
-        <th style="min-width:100px;">채널</th>
-  `;
-
-  s4dates.forEach(date => {
-    html += `<th>${date}</th>`;
-  });
-
-  html += `
-        <th>합계</th>
-        <th>전주합계</th>
-        <th>전주비</th>
-      </tr>
-    </thead>
-    <tbody>
-  `;
-
-  // Build rows for each channel
-  channels.slice(0, 17).forEach((ch, idx) => {
-    let chSum = 0;
-    let chPrevSum = 0;
-
-    const dayValues = [];
-    for (let i = 0; i < lastRows.length; i++) {
-      const row = lastRows[i];
-      const val = (row && row.v && row.v[idx] != null) ? row.v[idx] : 0;
-      dayValues.push(val);
-      chSum += val;
-    }
-
-    // Actual previous week sum
-    for (let i = 0; i < prevWeekRows.length; i++) {
-      const row = prevWeekRows[i];
-      const val = (row && row.v && row.v[idx] != null) ? row.v[idx] : 0;
-      chPrevSum += val;
-    }
-
-    const pct = chPrevSum > 0 ? Math.round((chSum / chPrevSum) * 100) : null;
-    const pctStr = pct === null ? '-' : (pct >= 100 ? `<span class="pct-up">${pct}%</span>` : `<span class="pct-down">${pct}%</span>`);
-
-    html += `<tr>
-      <td class="left" style="font-weight:600;">${ch}</td>
-    `;
-
-    dayValues.forEach(val => {
-      html += `<td>${fmt(val)}</td>`;
-    });
-
-    html += `
-      <td class="row-total">${fmt(chSum)}</td>
-      <td>${fmt(chPrevSum)}</td>
-      <td class="center">${pctStr}</td>
-    </tr>
-    `;
-  });
-
-  // Add total row
-  let totalSum = 0;
-  let totalPrevSum = 0;
-  const totalDays = [];
-  for (let i = 0; i < lastRows.length; i++) {
-    const row = lastRows[i];
-    const daySum = (row && row.v) ? row.v.reduce((a, b) => a + (b || 0), 0) : 0;
-    totalDays.push(daySum);
-    totalSum += daySum;
-  }
-  for (let i = 0; i < prevWeekRows.length; i++) {
-    const row = prevWeekRows[i];
-    totalPrevSum += (row && row.v) ? row.v.reduce((a, b) => a + (b || 0), 0) : 0;
-  }
-  const totalPct = totalPrevSum > 0 ? Math.round((totalSum / totalPrevSum) * 100) : null;
-
-  html += `<tr class="subtotal-depth0">
-    <td style="font-weight:700;">전체</td>
-  `;
-
-  totalDays.forEach(val => {
-    html += `<td>${fmt(val)}</td>`;
-  });
-
-  html += `
-    <td>${fmt(totalSum)}</td>
-    <td>${fmt(totalPrevSum)}</td>
-    <td class="center">${totalPct === null ? '-' : totalPct + '%'}</td>
-  </tr>
-  `;
-
-  html += `</tbody></table>`;
-
-  document.getElementById('s4-body').innerHTML = html;
-}
-
-// ============================================================
-// MAIN RENDER FUNCTION
-// ============================================================
-function renderAllSections() {
-  renderSection1();
-  renderSection2();
-  renderSection3();
-  renderSection4();
-}
-
+/* ===== MAIN ===== */
+function renderAllSections(){renderSection1();renderSection2();renderSection3();renderSection4();}
 </script>
 </body>
 </html>
