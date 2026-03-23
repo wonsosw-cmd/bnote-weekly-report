@@ -169,11 +169,10 @@ canvas { height:680px !important; }
   .scol { border-right:1px solid #C0C5CE !important; }
   .scol-1::after { content:''; position:absolute; top:0; right:-6px; bottom:0; width:6px; background:linear-gradient(to right,rgba(0,0,0,.1),transparent); pointer-events:none; }
 
-  .s3-body.section-body { display:flex !important; flex-direction:row !important; overflow:hidden !important; padding:10px 0; }
-  .s3-y-axis { display:flex !important; flex-direction:column; justify-content:space-between; width:50px; flex-shrink:0; z-index:3; padding:32px 6px 40px 8px; text-align:right; font-size:.82rem; color:#555; font-weight:500; background:#fff; border-right:2px solid #D8DCE3; box-shadow:4px 0 8px rgba(0,0,0,.06); }
-  .s3-y-axis .y-tick { line-height:1.2; white-space:nowrap; }
-  .s3-scroll { flex:1; min-width:0; overflow-x:auto !important; -webkit-overflow-scrolling:touch; }
-  .s3-scroll .chart-container { min-width:1600px; height:420px; }
+  .s3-body.section-body { display:block !important; overflow-x:auto !important; -webkit-overflow-scrolling:touch; padding:10px; }
+  .s3-y-axis { display:none !important; }
+  .s3-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .s3-scroll .chart-container { width:1800px; min-width:1800px; height:350px; }
   .chart-day-btn { font-size:.88rem; padding:6px 14px; }
 }
 @media(max-width:420px) {
@@ -466,28 +465,24 @@ function renderSection3(){
   const isMob=window.innerWidth<=768;
   const ctx=document.getElementById('s3Chart').getContext('2d');
   if(s3ChartInstance)s3ChartInstance.destroy();
+  // 모바일: fixed canvas, 데스크톱: responsive
+  const canvas=document.getElementById('s3Chart');
+  if(isMob){canvas.width=1800;canvas.height=350;canvas.style.width='1800px';canvas.style.height='350px';}
+
   s3ChartInstance=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[
     {label:'2024',data:d24,backgroundColor:'rgba(200,210,220,0.6)',borderColor:'rgba(160,170,180,0.8)',borderWidth:1},
     {label:'2025',data:d25,backgroundColor:'rgba(100,160,220,0.55)',borderColor:'rgba(80,140,200,0.8)',borderWidth:1},
     {label:'2026',data:d26,backgroundColor:c26,borderColor:b26,borderWidth:1}
-  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{
-    legend:{position:'top',labels:{font:{family:'Noto Sans KR',size:isMob?13:12},usePointStyle:true,
+  ]},options:{responsive:!isMob,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{
+    legend:{position:'top',labels:{font:{family:'Noto Sans KR',size:12},usePointStyle:true,
       generateLabels:function(chart){return chart.data.datasets.map((d,i)=>({text:d.label,
         fillStyle:i===0?'rgba(200,210,220,0.6)':i===1?'rgba(100,160,220,0.55)':'rgba(26,75,150,0.85)',
         strokeStyle:i===0?'rgba(160,170,180,0.8)':i===1?'rgba(80,140,200,0.8)':'rgba(26,75,150,1)',
         lineWidth:1,datasetIndex:i,hidden:!chart.isDatasetVisible(i)}));}}},
     tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y?c.parsed.y.toFixed(0):'-')+'백만원'}}},
-    scales:{x:{grid:{display:false},ticks:{font:function(c){return c.index===ci?{family:'Noto Sans KR',size:isMob?13:11,weight:'bold'}:{family:'Noto Sans KR',size:isMob?12:10};},maxRotation:90,minRotation:45,color:function(c){return c.index===ci?'#E53935':'#666';}}},
-    y:{beginAtZero:true,display:!isMob,ticks:{font:{family:'Noto Sans KR',size:11},callback:v=>v.toLocaleString()},title:{display:true,text:'백만원',font:{family:'Noto Sans KR',size:12}}}}}});
+    scales:{x:{grid:{display:false},ticks:{font:{family:'Noto Sans KR',size:10},maxRotation:60,minRotation:45,color:function(c){return c.index===ci?'#E53935':'#666';}}},
+    y:{beginAtZero:true,display:true,ticks:{font:{family:'Noto Sans KR',size:11},callback:v=>v.toFixed(0)+''},title:{display:true,text:'백만원',font:{family:'Noto Sans KR',size:11}}}}}});
 
-  if(isMob)setTimeout(()=>{
-    const yDiv=document.getElementById('s3YAxis');if(!yDiv||!s3ChartInstance)return;
-    const yS=s3ChartInstance.scales.y;if(!yS)return;const tks=yS.ticks;
-    const ca=s3ChartInstance.chartArea,ch=s3ChartInstance.canvas.offsetHeight;
-    yDiv.style.paddingTop=ca.top+'px';yDiv.style.paddingBottom=(ch-ca.bottom)+'px';
-    let yh='';for(let i=tks.length-1;i>=0;i--)yh+='<div class="y-tick">'+Number(tks[i].value).toLocaleString()+'</div>';
-    yDiv.innerHTML=yh;
-  },150);
 }
 
 /* ===== S4: CHANNEL DATA (zero-channel hiding) ===== */
