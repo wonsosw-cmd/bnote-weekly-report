@@ -108,21 +108,8 @@ tr.subtotal-depth0 td { color:#fff !important; font-weight:700; }
 /* ========== CHART ========== */
 .chart-container { position:relative; width:100%; height:720px; }
 canvas { height:680px !important; }
-.s3-body { display:flex; position:relative; }
-.s3-y-axis {
-  display:none; /* PC에서는 Chart.js 자체 Y축 사용 */
-  flex-shrink:0; width:58px; padding:0; box-sizing:border-box;
-  background:#fff; z-index:2; border-right:1px solid #E8EBF0;
-}
-.s3-y-axis .y-tick {
-  font-size:.82rem; font-weight:600; color:#333; text-align:right;
-  padding-right:6px; white-space:nowrap; font-family:'Noto Sans KR',sans-serif;
-}
-.s3-y-axis .y-title {
-  font-size:.75rem; font-weight:600; color:#555; text-align:center;
-  padding:4px 0; border-bottom:1px solid #E8EBF0;
-}
-.s3-scroll { flex:1; min-width:0; }
+.s3-body { position:relative; }
+.s3-scroll { width:100%; }
 .chart-day-btn {
   font-family:'Noto Sans KR',sans-serif; font-size:.85rem; font-weight:500; padding:6px 16px;
   border:1px solid #CDD1D9; border-radius:6px; background:#fff; color:#666; cursor:pointer;
@@ -181,10 +168,10 @@ canvas { height:680px !important; }
   .scol { border-right:1px solid #C0C5CE !important; }
   .scol-1::after { content:''; position:absolute; top:0; right:-6px; bottom:0; width:6px; background:linear-gradient(to right,rgba(0,0,0,.1),transparent); pointer-events:none; }
 
-  .s3-body.section-body { display:flex !important; overflow:hidden !important; padding:10px; }
-  .s3-y-axis { display:flex !important; flex-direction:column; width:52px; min-width:52px; padding-top:0; }
-  .s3-scroll { flex:1; min-width:0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
-  .s3-scroll .chart-container { width:1800px; min-width:1800px; height:350px; }
+  .s3-body.section-body { display:block !important; overflow-x:auto !important; -webkit-overflow-scrolling:touch; padding:10px; }
+  .s3-scroll { width:1800px; min-width:1800px; }
+  .s3-scroll .chart-container { width:1800px; min-width:1800px; height:480px; }
+  .s3-scroll .chart-container canvas { height:480px !important; }
   .chart-day-btn { font-size:.88rem; padding:6px 14px; }
 }
 @media(max-width:420px) {
@@ -200,7 +187,8 @@ canvas { height:680px !important; }
   .mk-sub-value { font-size:1rem; }
   table.data-tbl { min-width:650px; }
   table.data-tbl th, table.data-tbl td { font-size:.88rem; padding:7px 8px; }
-  .s3-scroll .chart-container { min-width:1400px; height:350px; }
+  .s3-scroll .chart-container { min-width:1400px; height:460px; }
+  .s3-scroll .chart-container canvas { height:460px !important; }
 }
 </style>
 </head>
@@ -472,15 +460,15 @@ function renderSection3(){
     '<div class="section"><div class="section-header"><div class="section-header-left"><span>3. \'24~\'26 주차별 거래액 추이</span><span class="badge">WEEKLY TREND</span></div>'+
     '<div><button class="chart-day-btn '+(chartDay==='tue'?'active':'')+'" onclick="setChartDay(\'tue\')">화요일 기준</button>'+
     '<button class="chart-day-btn '+(chartDay==='fri'?'active':'')+'" onclick="setChartDay(\'fri\')">금요일 기준</button></div></div>'+
-    '<div class="section-body s3-body"><div class="s3-y-axis" id="s3YAxis"></div><div class="s3-scroll"><div class="chart-container"><canvas id="s3Chart"></canvas></div></div></div></div>';
+    '<div class="section-body s3-body"><div class="s3-scroll"><div class="chart-container"><canvas id="s3Chart"></canvas></div></div></div></div>';
 
   const isMob=window.innerWidth<=768;
   const ctx=document.getElementById('s3Chart').getContext('2d');
   if(s3ChartInstance)s3ChartInstance.destroy();
   const canvas=document.getElementById('s3Chart');
-  if(isMob){canvas.width=1800;canvas.height=350;canvas.style.width='1800px';canvas.style.height='350px';}
+  // 모바일: 넓은 고정 캔버스 (Y축+그래프+X축 모두 포함), 높이 충분히
+  if(isMob){canvas.width=1800;canvas.height=480;canvas.style.width='1800px';canvas.style.height='480px';}
 
-  // PC: 선명한 색상 & 큰 폰트 / Mobile: Y축 숨기고 별도 div로 표시
   const barColors={
     c24:'rgba(180,195,210,0.75)', b24:'rgba(140,155,170,1)',
     c25:'rgba(70,140,210,0.7)',  b25:'rgba(50,120,190,1)',
@@ -493,46 +481,24 @@ function renderSection3(){
     {label:'2025',data:d25,backgroundColor:barColors.c25,borderColor:barColors.b25,borderWidth:1.5},
     {label:'2026',data:d26,backgroundColor:c26.map(c=>c==='#E53935'?barColors.c26_cur:barColors.c26_def),borderColor:b26.map(b=>b==='#B71C1C'?barColors.b26_cur:barColors.b26_def),borderWidth:1.5}
   ]},options:{responsive:!isMob,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    layout:{padding:{left:isMob?0:8,right:8,top:8,bottom:8}},
+    layout:{padding:{left:8,right:8,top:8,bottom:8}},
     plugins:{
-    legend:{position:'top',labels:{font:{family:'Noto Sans KR',size:isMob?11:13,weight:'bold'},usePointStyle:true,padding:isMob?10:16,
+    legend:{position:'top',labels:{font:{family:'Noto Sans KR',size:isMob?12:13,weight:'bold'},usePointStyle:true,padding:isMob?12:16,
       generateLabels:function(chart){return chart.data.datasets.map((d,i)=>({text:d.label,
         fillStyle:i===0?barColors.c24:i===1?barColors.c25:barColors.c26_def,
         strokeStyle:i===0?barColors.b24:i===1?barColors.b25:barColors.b26_def,
         lineWidth:1.5,datasetIndex:i,hidden:!chart.isDatasetVisible(i)}));}}},
     tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y?c.parsed.y.toFixed(0):'-')+'백만원'}}},
     scales:{
-      x:{grid:{display:false},ticks:{font:{family:'Noto Sans KR',size:isMob?10:13,weight:'600'},maxRotation:isMob?60:55,minRotation:isMob?45:35,
+      x:{grid:{display:false},ticks:{font:{family:'Noto Sans KR',size:isMob?11:13,weight:'600'},maxRotation:isMob?55:55,minRotation:isMob?40:35,
         color:function(c){return c.index===ci?'#E53935':'#333';}}},
-      y:{beginAtZero:true,display:!isMob,
+      y:{beginAtZero:true,display:true,
         grid:{color:'rgba(0,0,0,0.08)',lineWidth:1},
-        ticks:{font:{family:'Noto Sans KR',size:isMob?10:13,weight:'600'},color:'#333',padding:6,
+        ticks:{font:{family:'Noto Sans KR',size:isMob?11:13,weight:'600'},color:'#333',padding:6,
           callback:function(v){return v.toLocaleString();}},
-        title:{display:!isMob,text:'백만원',font:{family:'Noto Sans KR',size:13,weight:'700'},color:'#333'}}
+        title:{display:true,text:'백만원',font:{family:'Noto Sans KR',size:isMob?11:13,weight:'700'},color:'#333'}}
     }
   }});
-
-  // 모바일: Y축 별도 div 생성 (Chart.js Y축 숨기고 CSS div로 고정 표시)
-  if(isMob){
-    const yDiv=document.getElementById('s3YAxis');
-    if(yDiv){
-      const yScale=s3ChartInstance.scales.y;
-      // Chart.js에서 실제 tick 값 가져오기 (display:false여도 계산은 됨)
-      const ticks=yScale.ticks||[];
-      const chartArea=s3ChartInstance.chartArea;
-      const chartH=chartArea.bottom-chartArea.top;
-      const topPad=chartArea.top; // legend + padding
-
-      let yHtml='<div class="y-title" style="height:'+topPad+'px;line-height:'+topPad+'px;">백만원</div>';
-      yHtml+='<div style="position:relative;height:'+chartH+'px;">';
-      ticks.forEach(t=>{
-        const px=yScale.getPixelForTick(ticks.indexOf(t))-chartArea.top;
-        yHtml+='<div class="y-tick" style="position:absolute;top:'+px+'px;right:4px;transform:translateY(-50%);">'+Number(t.value).toLocaleString()+'</div>';
-      });
-      yHtml+='</div>';
-      yDiv.innerHTML=yHtml;
-    }
-  }
 
 }
 
