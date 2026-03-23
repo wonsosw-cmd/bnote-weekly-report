@@ -108,8 +108,9 @@ tr.subtotal-depth0 td { color:#fff !important; font-weight:700; }
 /* ========== CHART ========== */
 .chart-container { position:relative; width:100%; height:720px; }
 canvas { height:680px !important; }
-.s3-body { position:relative; }
-.s3-scroll { width:100%; }
+.s3-body { position:relative; display:flex; }
+.s3-y-axis { display:none; } /* PC: Chart.js 자체 Y축 */
+.s3-scroll { flex:1; min-width:0; }
 .chart-day-btn {
   font-family:'Noto Sans KR',sans-serif; font-size:.85rem; font-weight:500; padding:6px 16px;
   border:1px solid #CDD1D9; border-radius:6px; background:#fff; color:#666; cursor:pointer;
@@ -117,6 +118,12 @@ canvas { height:680px !important; }
 }
 .chart-day-btn:hover { border-color:#4A90D9; color:#4A90D9; }
 .chart-day-btn.active { background:#1B2E5C; color:#fff; border-color:#1B2E5C; font-weight:700; }
+
+/* ========== SORT HEADER ========== */
+.sort-th { cursor:pointer; user-select:none; white-space:nowrap; }
+.sort-th:hover { background:#E8EDF4; }
+.sort-th .sort-icon { font-size:.7rem; margin-left:3px; color:#999; vertical-align:middle; }
+.sort-th.sort-active .sort-icon { color:#1B2E5C; font-weight:900; }
 
 /* ========== LOADING ========== */
 .loading-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); z-index:500; align-items:center; justify-content:center; flex-direction:column; }
@@ -168,10 +175,17 @@ canvas { height:680px !important; }
   .scol { border-right:1px solid #C0C5CE !important; }
   .scol-1::after { content:''; position:absolute; top:0; right:-6px; bottom:0; width:6px; background:linear-gradient(to right,rgba(0,0,0,.1),transparent); pointer-events:none; }
 
-  .s3-body.section-body { display:block !important; overflow-x:auto !important; -webkit-overflow-scrolling:touch; padding:10px; }
-  .s3-scroll { width:1800px; min-width:1800px; }
-  .s3-scroll .chart-container { width:1800px; min-width:1800px; height:480px; }
-  .s3-scroll .chart-container canvas { height:480px !important; }
+  .s3-body.section-body { display:flex !important; overflow:hidden !important; padding:10px; }
+  .s3-y-axis {
+    display:block !important; flex-shrink:0; width:52px; min-width:52px;
+    background:#fff; z-index:2; border-right:1px solid #E0E3E8;
+    overflow:hidden;
+  }
+  .s3-y-axis .y-title { font-size:.72rem; font-weight:700; color:#555; text-align:center; }
+  .s3-y-axis .y-tick { font-size:.78rem; font-weight:600; color:#333; text-align:right; padding-right:4px; white-space:nowrap; }
+  .s3-scroll { flex:1; min-width:0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .s3-scroll .chart-container { width:1800px; min-width:1800px; height:420px; }
+  .s3-scroll .chart-container canvas { height:420px !important; }
   .chart-day-btn { font-size:.88rem; padding:6px 14px; }
 }
 @media(max-width:420px) {
@@ -187,8 +201,8 @@ canvas { height:680px !important; }
   .mk-sub-value { font-size:1rem; }
   table.data-tbl { min-width:650px; }
   table.data-tbl th, table.data-tbl td { font-size:.88rem; padding:7px 8px; }
-  .s3-scroll .chart-container { min-width:1400px; height:460px; }
-  .s3-scroll .chart-container canvas { height:460px !important; }
+  .s3-scroll .chart-container { min-width:1400px; height:400px; }
+  .s3-scroll .chart-container canvas { height:400px !important; }
 }
 </style>
 </head>
@@ -231,6 +245,7 @@ const GAS_URL='https://script.google.com/macros/s/AKfycbwmWK2sGAv-kQoQEzcEoaw9q7
 const DEFAULT_CONVERSION_RATE=0.8636364;
 const FETCH_TIMEOUT=8000;
 let allData=null, refDate=null, currentMonth=3, currentYear=2026, chartDay='tue', s3ChartInstance=null;
+let s4Sort={col:'cs',dir:'desc'}; // 기본: 금주합계 내림차순
 
 /* ===== PASSWORD ===== */
 function calculateRefDate(now){
@@ -456,18 +471,19 @@ function renderSection3(){
   const c26=labels.map((_,i)=>i===ci?'#E53935':'rgba(26,75,150,0.85)');
   const b26=labels.map((_,i)=>i===ci?'#B71C1C':'rgba(26,75,150,1)');
 
+  const isMob=window.innerWidth<=768;
+
   document.getElementById('s3-section').innerHTML=
     '<div class="section"><div class="section-header"><div class="section-header-left"><span>3. \'24~\'26 주차별 거래액 추이</span><span class="badge">WEEKLY TREND</span></div>'+
     '<div><button class="chart-day-btn '+(chartDay==='tue'?'active':'')+'" onclick="setChartDay(\'tue\')">화요일 기준</button>'+
     '<button class="chart-day-btn '+(chartDay==='fri'?'active':'')+'" onclick="setChartDay(\'fri\')">금요일 기준</button></div></div>'+
-    '<div class="section-body s3-body"><div class="s3-scroll"><div class="chart-container"><canvas id="s3Chart"></canvas></div></div></div></div>';
+    '<div class="section-body s3-body">'+(isMob?'<div class="s3-y-axis" id="s3YAxis"></div>':'')+
+    '<div class="s3-scroll"><div class="chart-container"><canvas id="s3Chart"></canvas></div></div></div></div>';
 
-  const isMob=window.innerWidth<=768;
   const ctx=document.getElementById('s3Chart').getContext('2d');
   if(s3ChartInstance)s3ChartInstance.destroy();
   const canvas=document.getElementById('s3Chart');
-  // 모바일: 넓은 고정 캔버스 (Y축+그래프+X축 모두 포함), 높이 충분히
-  if(isMob){canvas.width=1800;canvas.height=480;canvas.style.width='1800px';canvas.style.height='480px';}
+  if(isMob){canvas.width=1800;canvas.height=420;canvas.style.width='1800px';canvas.style.height='420px';}
 
   const barColors={
     c24:'rgba(180,195,210,0.75)', b24:'rgba(140,155,170,1)',
@@ -481,7 +497,7 @@ function renderSection3(){
     {label:'2025',data:d25,backgroundColor:barColors.c25,borderColor:barColors.b25,borderWidth:1.5},
     {label:'2026',data:d26,backgroundColor:c26.map(c=>c==='#E53935'?barColors.c26_cur:barColors.c26_def),borderColor:b26.map(b=>b==='#B71C1C'?barColors.b26_cur:barColors.b26_def),borderWidth:1.5}
   ]},options:{responsive:!isMob,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    layout:{padding:{left:8,right:8,top:8,bottom:8}},
+    layout:{padding:{left:isMob?4:8,right:8,top:8,bottom:8}},
     plugins:{
     legend:{position:'top',labels:{font:{family:'Noto Sans KR',size:isMob?12:13,weight:'bold'},usePointStyle:true,padding:isMob?12:16,
       generateLabels:function(chart){return chart.data.datasets.map((d,i)=>({text:d.label,
@@ -492,17 +508,42 @@ function renderSection3(){
     scales:{
       x:{grid:{display:false},ticks:{font:{family:'Noto Sans KR',size:isMob?11:13,weight:'600'},maxRotation:isMob?55:55,minRotation:isMob?40:35,
         color:function(c){return c.index===ci?'#E53935':'#333';}}},
-      y:{beginAtZero:true,display:true,
+      y:{beginAtZero:true,display:!isMob,
         grid:{color:'rgba(0,0,0,0.08)',lineWidth:1},
-        ticks:{font:{family:'Noto Sans KR',size:isMob?11:13,weight:'600'},color:'#333',padding:6,
+        ticks:{font:{family:'Noto Sans KR',size:13,weight:'600'},color:'#333',padding:6,
           callback:function(v){return v.toLocaleString();}},
-        title:{display:true,text:'백만원',font:{family:'Noto Sans KR',size:isMob?11:13,weight:'700'},color:'#333'}}
+        title:{display:!isMob,text:'백만원',font:{family:'Noto Sans KR',size:13,weight:'700'},color:'#333'}}
     }
   }});
 
+  // 모바일: 고정 Y축 div 생성 — Chart.js 차트 영역과 정확히 pixel 정렬
+  if(isMob&&document.getElementById('s3YAxis')){
+    const yScale=s3ChartInstance.scales.y;
+    const ca=s3ChartInstance.chartArea;
+    const ticks=yScale.ticks||[];
+    const yDiv=document.getElementById('s3YAxis');
+
+    // legend 영역 높이만큼 상단 패딩
+    let yHtml='<div class="y-title" style="height:'+ca.top+'px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;">백만원</div>';
+    // 차트 영역에 tick 배치
+    yHtml+='<div style="position:relative;height:'+(ca.bottom-ca.top)+'px;">';
+    ticks.forEach((t,idx)=>{
+      const py=yScale.getPixelForTick(idx)-ca.top;
+      yHtml+='<div class="y-tick" style="position:absolute;top:'+py+'px;right:2px;transform:translateY(-50%);line-height:1;">'+Number(t.value).toLocaleString()+'</div>';
+    });
+    yHtml+='</div>';
+    yDiv.innerHTML=yHtml;
+  }
+
 }
 
-/* ===== S4: CHANNEL DATA (zero-channel hiding) ===== */
+/* ===== S4: CHANNEL DATA (zero-channel hiding + sort) ===== */
+function s4SetSort(col){
+  if(s4Sort.col===col){s4Sort.dir=s4Sort.dir==='desc'?'asc':'desc';}
+  else{s4Sort.col=col;s4Sort.dir='desc';}
+  renderSection4();
+}
+
 function renderSection4(){
   if(!allData||!allData.rows||!allData.channels){document.getElementById('s4-section').innerHTML='';return;}
   const rows=allData.rows||[],channels=allData.channels||[],dayN=['(일)','(월)','(화)','(수)','(목)','(금)','(토)'];
@@ -517,14 +558,36 @@ function renderSection4(){
     let cs=0,ps=0;const dv=[];
     for(let i=0;i<last.length;i++){const v=(last[i]&&last[i].v&&last[i].v[idx]!=null)?last[i].v[idx]:0;dv.push(v);cs+=v;}
     for(let i=0;i<prev.length;i++){const v=(prev[i]&&prev[i].v&&prev[i].v[idx]!=null)?prev[i].v[idx]:0;ps+=v;}
-    if(cs===0&&ps===0)return; // 금주+전주 모두 0이면 숨김
+    if(cs===0&&ps===0)return;
     const pct=ps>0?Math.round(cs/ps*100):null;
     chData.push({name:ch,dv:dv,cs:cs,ps:ps,pct:pct});
   });
 
+  // 정렬 적용
+  const sc=s4Sort.col, sd=s4Sort.dir==='asc'?1:-1;
+  chData.sort((a,b)=>{
+    let va,vb;
+    if(sc==='cs'){va=a.cs;vb=b.cs;}
+    else if(sc==='ps'){va=a.ps;vb=b.ps;}
+    else if(sc==='pct'){va=a.pct||0;vb=b.pct||0;}
+    else if(sc.startsWith('d')){const di=parseInt(sc.substring(1));va=a.dv[di]||0;vb=b.dv[di]||0;}
+    else{va=a.cs;vb=b.cs;}
+    return (va-vb)*sd;
+  });
+
+  // 정렬 아이콘 헬퍼
+  function sIco(col){
+    const active=s4Sort.col===col;
+    const arrow=active?(s4Sort.dir==='desc'?'▼':'▲'):'⇅';
+    return '<span class="sort-icon">'+arrow+'</span>';
+  }
+  function sCls(col){return 'sort-th'+(s4Sort.col===col?' sort-active':'');}
+
   let h='<table class="data-tbl"><thead><tr><th class="scol scol-1" style="min-width:100px;">채널</th>';
-  dates.forEach(d=>h+='<th>'+d+'</th>');
-  h+='<th>합계</th><th>전주합계</th><th>전주비</th></tr></thead><tbody>';
+  dates.forEach((d,i)=>h+='<th class="'+sCls('d'+i)+'" onclick="s4SetSort(\'d'+i+'\')">'+d+sIco('d'+i)+'</th>');
+  h+='<th class="'+sCls('cs')+'" onclick="s4SetSort(\'cs\')">합계'+sIco('cs')+'</th>';
+  h+='<th class="'+sCls('ps')+'" onclick="s4SetSort(\'ps\')">전주합계'+sIco('ps')+'</th>';
+  h+='<th class="'+sCls('pct')+'" onclick="s4SetSort(\'pct\')">전주비'+sIco('pct')+'</th></tr></thead><tbody>';
 
   chData.forEach(ch=>{
     const ps=ch.pct===null?'-':(ch.pct>=100?'<span class="pct-up">'+ch.pct+'%</span>':'<span class="pct-down">'+ch.pct+'%</span>');
