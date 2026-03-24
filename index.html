@@ -354,25 +354,36 @@ function renderSection1(){
   const geo_prog=geo_tgt>0?Math.round(geo_cum/geo_tgt*100):0;
   const hw_prog=hw_tgt>0?Math.round(hw_cum/hw_tgt*100):0;
 
+  // 총계: 해당 월 전체 데이터 합산
   function getMS(mn,yr){
     let g=0,h=0;
     rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(chRates,channels[idx]||'');});}});
+    return{g,h:Math.round(h)};
+  }
+  // 누계: 해당 월 1일~maxDay까지만 합산
+  function getMSCum(mn,yr,maxDay){
+    let g=0,h=0;
+    rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1&&d.getDate()<=maxDay){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(chRates,channels[idx]||'');});}});
     return{g,h:Math.round(h)};
   }
 
   const pm1=M>1?M-1:12,pm1y=M>1?currentYear:currentYear-1;
   const pm2=M>2?M-2:12+(M-2),pm2y=M>2?currentYear:currentYear-1;
   const pm3=M>3?M-3:12+(M-3),pm3y=M>3?currentYear:currentYear-1;
-  const m1=getMS(pm1,pm1y),m2=getMS(pm2,pm2y),m3=getMS(pm3,pm3y),ly=getMS(M,currentYear-1);
+  // 누계 (각월 1일~refDay)
+  const m1c=getMSCum(pm1,pm1y,refDay),m2c=getMSCum(pm2,pm2y,refDay),m3c=getMSCum(pm3,pm3y,refDay),lyc=getMSCum(M,currentYear-1,refDay);
+  // 총계 (각월 전체)
+  const m1t=getMS(pm1,pm1y),m2t=getMS(pm2,pm2y),m3t=getMS(pm3,pm3y),lyt=getMS(M,currentYear-1);
   const gp=(c,r)=>r>0?Math.round(c/r*100):0;
 
-  function makeCard(label,cum,pct){
+  function makeCard(label,cum,pct,total){
     return '<div class="mc-card"><div class="mc-title">'+label+'</div>'+
       '<div class="mc-row"><span class="mc-label">누계</span><span class="mc-val">'+fmt(cum)+'</span></div>'+
-      '<div class="mc-row"><span class="mc-label">동기비</span><span class="mc-val '+pctClass(pct)+'">'+pct+'%</span></div></div>';
+      '<div class="mc-row"><span class="mc-label">동기비</span><span class="mc-val '+pctClass(pct)+'">'+pct+'%</span></div>'+
+      '<div class="mc-row"><span class="mc-label">총계</span><span class="mc-val">'+fmt(total)+'</span></div></div>';
   }
 
-  function makeTable(title,cum,tgt,prog,unit,c1,c2,c3,cly){
+  function makeTable(title,cum,tgt,prog,unit,c1,c2,c3,cly,t1,t2,t3,tly){
     const p1=gp(cum,c1),p2=gp(cum,c2),p3=gp(cum,c3),ply=gp(cum,cly);
     const desktop='<div class="s1-desktop"><table class="summary"><tr>'+
       '<th style="width:18%;background:#0F1B3D;color:#fff;font-size:1rem;">'+M+'월 누계<br><span style="font-size:.75rem;font-weight:400">('+dateStr+')</span></th>'+
@@ -384,16 +395,20 @@ function renderSection1(){
       '<table class="summary" style="margin-top:-1px;"><tr>'+
       '<td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">'+
         '<div class="row-item"><span class="label">'+pm1+'월 누계</span><span class="value">'+fmt(c1)+'</span></div>'+
-        '<div class="row-item pct"><span class="label">'+pm1+'월 동기비</span><span class="value '+pctClass(p1)+'">'+p1+'%</span></div></td>'+
+        '<div class="row-item pct"><span class="label">'+pm1+'월 동기비</span><span class="value '+pctClass(p1)+'">'+p1+'%</span></div>'+
+        '<div class="row-item"><span class="label">'+pm1+'월 총계</span><span class="value">'+fmt(t1)+'</span></div></td>'+
       '<td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">'+
         '<div class="row-item"><span class="label">'+pm2+'월 누계</span><span class="value">'+fmt(c2)+'</span></div>'+
-        '<div class="row-item pct"><span class="label">'+pm2+'월 동기비</span><span class="value '+pctClass(p2)+'">'+p2+'%</span></div></td>'+
+        '<div class="row-item pct"><span class="label">'+pm2+'월 동기비</span><span class="value '+pctClass(p2)+'">'+p2+'%</span></div>'+
+        '<div class="row-item"><span class="label">'+pm2+'월 총계</span><span class="value">'+fmt(t2)+'</span></div></td>'+
       '<td class="sub-cell" style="width:25%;border-right:2px solid #D8DCE3;">'+
         '<div class="row-item"><span class="label">'+pm3+'월 누계</span><span class="value">'+fmt(c3)+'</span></div>'+
-        '<div class="row-item pct"><span class="label">'+pm3+'월 동기비</span><span class="value '+pctClass(p3)+'">'+p3+'%</span></div></td>'+
+        '<div class="row-item pct"><span class="label">'+pm3+'월 동기비</span><span class="value '+pctClass(p3)+'">'+p3+'%</span></div>'+
+        '<div class="row-item"><span class="label">'+pm3+'월 총계</span><span class="value">'+fmt(t3)+'</span></div></td>'+
       '<td class="sub-cell" style="width:25%;">'+
         '<div class="row-item"><span class="label">25\' '+M+'월 누계</span><span class="value">'+fmt(cly)+'</span></div>'+
-        '<div class="row-item pct"><span class="label">25\' 동기비</span><span class="value '+pctClass(ply)+'">'+ply+'%</span></div></td>'+
+        '<div class="row-item pct"><span class="label">25\' 동기비</span><span class="value '+pctClass(ply)+'">'+ply+'%</span></div>'+
+        '<div class="row-item"><span class="label">25\' '+M+'월 총계</span><span class="value">'+fmt(tly)+'</span></div></td>'+
       '</tr></table></div>';
 
     const mobile='<div class="s1-mobile"><div class="mk-hero">'+
@@ -401,15 +416,15 @@ function renderSection1(){
       '<div class="mk-hero-value">'+fmt(cum)+'</div></div>'+
       '<div class="mk-sub-row"><div class="mk-sub-item"><div class="mk-sub-label">'+M+'월 '+unit+' 목표</div><div class="mk-sub-value">'+fmt(tgt)+'</div></div>'+
       '<div class="mk-sub-item mk-progress"><div class="mk-sub-label">진도율</div><div class="mk-sub-value '+(prog>=100?'pct-up':'pct-down')+'">'+prog+'%</div></div></div>'+
-      '<div class="mc-grid">'+makeCard(pm1+'월',c1,p1)+makeCard(pm2+'월',c2,p2)+makeCard(pm3+'월',c3,p3)+makeCard('25\' '+M+'월',cly,ply)+'</div></div>';
+      '<div class="mc-grid">'+makeCard(pm1+'월',c1,p1,t1)+makeCard(pm2+'월',c2,p2,t2)+makeCard(pm3+'월',c3,p3,t3)+makeCard('25\' '+M+'월',cly,ply,tly)+'</div></div>';
 
     return '<div class="summary-wrap"><div class="summary-label">'+title+' <span style="color:#888;font-weight:400;font-size:.82rem">(단위: 원)</span></div>'+desktop+mobile+'</div>';
   }
 
   document.getElementById('s1-section').innerHTML=
     '<div class="section"><div class="section-header"><div class="section-header-left"><span>1. 당월('+M+'월) 현황</span><span class="badge">SUMMARY</span></div></div><div class="section-body">'+
-    makeTable('1-1. '+M+'월 매출액 현황 (회계기준)',hw_cum,hw_tgt,hw_prog,'매출액',m1.h,m2.h,m3.h,ly.h)+
-    makeTable('1-2. '+M+'월 거래액 현황',geo_cum,geo_tgt,geo_prog,'거래액',m1.g,m2.g,m3.g,ly.g)+
+    makeTable('1-1. '+M+'월 매출액 현황 (회계기준)',hw_cum,hw_tgt,hw_prog,'매출액',m1c.h,m2c.h,m3c.h,lyc.h,m1t.h,m2t.h,m3t.h,lyt.h)+
+    makeTable('1-2. '+M+'월 거래액 현황',geo_cum,geo_tgt,geo_prog,'거래액',m1c.g,m2c.g,m3c.g,lyc.g,m1t.g,m2t.g,m3t.g,lyt.g)+
     '</div></div>';
 }
 
