@@ -1,40 +1,40 @@
 {
   "refDate": "2026-03-23",
   "targetMonth": 3,
-  "generatedAt": "2026-03-24T00:46:12.932Z",
+  "generatedAt": "2026-03-24T01:03:31.452Z",
   "dashboardData": {
     "s1": {
       "revenue": {
-        "cumulative": 0,
+        "cumulative": null,
         "target": 0,
         "progress": 0,
-        "m2cum": 531700,
+        "m2cum": null,
         "m2pct": 0,
         "m2total": 0,
-        "m1cum": 40818,
+        "m1cum": null,
         "m1pct": 0,
         "m1total": 0,
-        "m12cum": 0,
+        "m12cum": null,
         "m12pct": 0,
         "m12total": 0,
-        "ly3cum": 0,
+        "ly3cum": null,
         "ly3pct": 0,
         "ly3total": 0
       },
       "transaction": {
-        "cumulative": 0,
+        "cumulative": null,
         "target": 0,
         "progress": 0,
-        "m2cum": 531700,
+        "m2cum": null,
         "m2pct": 0,
         "m2total": 0,
-        "m1cum": 40818,
+        "m1cum": null,
         "m1pct": 0,
         "m1total": 0,
-        "m12cum": 0,
+        "m12cum": null,
         "m12pct": 0,
         "m12total": 0,
-        "ly3cum": 0,
+        "ly3cum": null,
         "ly3pct": 0,
         "ly3total": 0
       }
@@ -306,6 +306,22 @@
             0,
             0
           ]
+        },
+        {
+          "depth": 1,
+          "label": "해외b2c",
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         }
       ]
     }
@@ -343,34 +359,34 @@
         0
       ],
       "2025": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         0,
-        0,
-        0,
-        0,
-        0,
-        16761600,
-        0,
-        37800,
-        545200,
-        23340,
-        18440,
-        515520,
-        65700
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
       ],
       "2026": [
-        531700,
-        40818,
+        null,
+        null,
+        null,
+        null,
+        null,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
       ]
     }
   }
