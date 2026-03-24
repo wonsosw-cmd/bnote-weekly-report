@@ -1,19 +1,19 @@
 {
   "refDate": "2026-03-23",
   "targetMonth": 3,
-  "generatedAt": "2026-03-24T05:39:06.144Z",
+  "generatedAt": "2026-03-24T05:43:56.022Z",
   "dashboardData": {
     "s1": {
       "revenue": {
         "cumulative": 5833478,
         "target": 51127272,
         "progress": 11,
-        "m2cum": 147869983,
-        "m2pct": 2535,
-        "m2total": 152560968,
-        "m1cum": 3453681,
-        "m1pct": 59,
-        "m1total": 17168416,
+        "m2cum": 127613427,
+        "m2pct": 2188,
+        "m2total": 131664726,
+        "m1cum": 2982719,
+        "m1pct": 51,
+        "m1total": 14827262,
         "m12cum": 0,
         "m12pct": 0,
         "m12total": 0,
