@@ -309,10 +309,14 @@ function retryLoadData(){showLoading(true);loadData();}
 function fixPlan(){if(!allData||!allData.plan)return;const p=allData.plan;if(!Array.isArray(p)){const arr=[];Object.keys(p).forEach(k=>{const i=parseInt(k);if(!isNaN(i))arr[i]=p[k];});allData.plan=arr;}}
 
 /* ===== CHANNEL CONVERSION RATES ===== */
+const CHANNEL_ALIAS={'네이버스토어':'스마트스토어','스마트스토어':'스마트스토어'};
 function buildChannelRates(){
   const plan=allData.plan||[],rates={};
-  for(let r=33;r<plan.length;r++){
-    const ch=String(plan[r][1]||'').trim();if(!ch)continue;
+  for(let r=37;r<plan.length;r++){
+    if(!plan[r])continue;
+    const raw=String(plan[r][2]||'').trim();if(!raw)continue;
+    const sect=String(plan[r][1]||'').trim();if(sect.indexOf('전환')<0)continue;
+    const ch=CHANNEL_ALIAS[raw]||raw;
     let rate=plan[r][currentMonth+3];
     if(typeof rate==='string'){rate=parseFloat(rate.replace('%','').replace(/,/g,''));if(!isNaN(rate)&&rate>1)rate/=100;}
     else if(typeof rate==='number'&&rate>1)rate/=100;
@@ -324,8 +328,8 @@ function getChannelRate(rates,ch){
   if(rates[ch]!==undefined)return rates[ch];
   const plan=allData.plan||[];
   let ht=0,gt=0;
-  if(plan.length>18&&plan[18].length>currentMonth+3){const v=plan[18][currentMonth+3];ht=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
-  if(plan.length>3&&plan[3].length>currentMonth+3){const v=plan[3][currentMonth+3];gt=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
+  if(plan.length>18&&plan[18]&&plan[18].length>currentMonth+3){const v=plan[18][currentMonth+3];ht=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
+  if(plan.length>3&&plan[3]&&plan[3].length>currentMonth+3){const v=plan[3][currentMonth+3];gt=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
   if(ht>0&&gt>0)return ht/gt;
   return DEFAULT_CONVERSION_RATE;
 }
