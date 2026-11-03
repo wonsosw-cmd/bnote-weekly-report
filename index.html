@@ -242,7 +242,7 @@ canvas { height:680px !important; }
 <script>
 const DATA_URL='https://raw.githubusercontent.com/wonsosw-cmd/bnote-weekly-report/main/data.json';
 const GAS_URL='https://script.google.com/macros/s/AKfycbwmWK2sGAv-kQoQEzcEoaw9q7Fhf3FQBv0Ug9ryjkXnxRzDgbuHWh-LR1wfzuhydK8odA/exec';
-const DEFAULT_CONVERSION_RATE=0.8636364;
+const DEFAULT_CONVERSION_RATE=0.86; // [2026-11-03] 시트 실적(회계)과 같은 기본값 — 그 달 전환비율이 빈 채널은 0.86
 const FETCH_TIMEOUT=8000;
 let allData=null, refDate=null, currentMonth=3, currentYear=2026, chartDay='tue', s3ChartInstance=null;
 /* chartDay 기본값: 접속 요일 기준 자동 선택 (화~목→tue, 금~월→fri) */
@@ -309,15 +309,18 @@ function retryLoadData(){showLoading(true);loadData();}
 function fixPlan(){if(!allData||!allData.plan)return;const p=allData.plan;if(!Array.isArray(p)){const arr=[];Object.keys(p).forEach(k=>{const i=parseInt(k);if(!isNaN(i))arr[i]=p[k];});allData.plan=arr;}}
 
 /* ===== CHANNEL CONVERSION RATES ===== */
-const CHANNEL_ALIAS={'네이버스토어':'스마트스토어','스마트스토어':'스마트스토어'};
-function buildChannelRates(){
+// [2026-11-03] 시트 실적표는 B2B 칸을 현대백화점 줄로 집계한다 — 전환비율도 현대백화점 것을 쓴다
+const CHANNEL_ALIAS={'네이버스토어':'스마트스토어','스마트스토어':'스마트스토어','현대백화점':'B2B'};
+// [2026-11-03] mon = 그 달 전환비율. 예전엔 지난달 매출액에도 이번 달 비율을 써서 시트 실적과 어긋났다
+function buildChannelRates(mon){
+  mon=mon||currentMonth;
   const plan=allData.plan||[],rates={};
   for(let r=37;r<plan.length;r++){
     if(!plan[r])continue;
     const raw=String(plan[r][2]||'').trim();if(!raw)continue;
     const sect=String(plan[r][1]||'').trim();if(sect.indexOf('전환')<0)continue;
     const ch=CHANNEL_ALIAS[raw]||raw;
-    let rate=plan[r][currentMonth+3];
+    let rate=plan[r][mon+3];
     if(typeof rate==='string'){rate=parseFloat(rate.replace('%','').replace(/,/g,''));if(!isNaN(rate)&&rate>1)rate/=100;}
     else if(typeof rate==='number'&&rate>1)rate/=100;
     if(rate&&!isNaN(rate)&&rate>0)rates[ch]=rate;
@@ -326,12 +329,7 @@ function buildChannelRates(){
 }
 function getChannelRate(rates,ch){
   if(rates[ch]!==undefined)return rates[ch];
-  const plan=allData.plan||[];
-  let ht=0,gt=0;
-  if(plan.length>18&&plan[18]&&plan[18].length>currentMonth+3){const v=plan[18][currentMonth+3];ht=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
-  if(plan.length>3&&plan[3]&&plan[3].length>currentMonth+3){const v=plan[3][currentMonth+3];gt=typeof v==='string'?parseFloat(v.replace(/,/g,'')):v||0;}
-  if(ht>0&&gt>0)return ht/gt;
-  return DEFAULT_CONVERSION_RATE;
+  return DEFAULT_CONVERSION_RATE; // 시트 실적(회계)과 같은 0.86 — 예전엔 회계목표/거래액목표 비율이었다
 }
 
 /* ===== S1: MONTHLY SUMMARY ===== */
@@ -339,15 +337,15 @@ function renderSection1(){
   if(!allData||!allData.rows){document.getElementById('s1-section').innerHTML='';return;}
   const rows=allData.rows||[],plan=allData.plan||[],channels=allData.channels||[];
   const M=currentMonth,refDay=refDate.getDate(),dateStr=M+'/1~'+M+'/'+refDay;
-  const chRates=buildChannelRates();
+  const rateCache={},ratesOf=mn=>rateCache[mn]||(rateCache[mn]=buildChannelRates(mn)); // 그 달 전환비율
 
   let geo_cum=0,hw_cum=0;
   rows.forEach(row=>{
     const d=new Date(row.d);
-    if(d.getMonth()===M-1&&d.getFullYear()===currentYear){
+    if(d.getMonth()===M-1&&d.getFullYear()===currentYear&&d.getDate()<=refDay){ // 기준일까지만
       (row.v||[]).forEach((val,idx)=>{
         geo_cum+=val;
-        hw_cum+=val*getChannelRate(chRates,channels[idx]||'');
+        hw_cum+=val*getChannelRate(ratesOf(M),channels[idx]||'');
       });
     }
   });
@@ -362,13 +360,13 @@ function renderSection1(){
   // 총계: 해당 월 전체 데이터 합산
   function getMS(mn,yr){
     let g=0,h=0;
-    rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(chRates,channels[idx]||'');});}});
+    rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(ratesOf(mn),channels[idx]||'');});}});
     return{g,h:Math.round(h)};
   }
   // 누계: 해당 월 1일~maxDay까지만 합산
   function getMSCum(mn,yr,maxDay){
     let g=0,h=0;
-    rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1&&d.getDate()<=maxDay){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(chRates,channels[idx]||'');});}});
+    rows.forEach(row=>{const d=new Date(row.d);if(d.getFullYear()===yr&&d.getMonth()===mn-1&&d.getDate()<=maxDay){(row.v||[]).forEach((val,idx)=>{g+=val;h+=val*getChannelRate(ratesOf(mn),channels[idx]||'');});}});
     return{g,h:Math.round(h)};
   }
 
